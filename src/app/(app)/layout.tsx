@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles } from "lucide-react";
+import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { name: "Flashcards", href: "/flashcards", icon: BookOpen },
   { name: "Quiz Mode", href: "/quiz", icon: BrainCircuit },
   { name: "Study Notes", href: "/study", icon: Sparkles },
+  { name: "Account", href: "/account", icon: User },
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {

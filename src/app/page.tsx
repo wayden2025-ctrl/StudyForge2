@@ -76,7 +76,10 @@ export default function LandingPage() {
             </div>
             StudyForge AI
           </div>
-          <Link href="/app" className="ncta">Start Free &rarr;</Link>
+          <div className="flex items-center gap-6">
+            <Link href="/login" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Sign In</Link>
+            <Link href="/app" className="ncta">Start Free &rarr;</Link>
+          </div>
         </div>
       </nav>
 
