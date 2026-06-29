@@ -63,7 +63,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <>
+    <div className="landing-wrapper" style={{ background: '#050505', color: '#fff', fontFamily: "'Inter', sans-serif", overflowX: 'hidden', minHeight: '100vh', lineHeight: 1.6 }}>
       <div id="cg"></div>
 
       {/* NAV */}
@@ -352,6 +352,6 @@ export default function LandingPage() {
           <span>Built for students, by students.</span>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

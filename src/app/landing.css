@@ -1,5 +1,4 @@
 /* ALL THE USER'S CUSTOM CSS */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --p:#a855f7;--b:#3b82f6;--c:#06b6d4;
   --pg:rgba(168,85,247,0.25);--bg2:rgba(59,130,246,0.25);--cg:rgba(6,182,212,0.25);
@@ -7,7 +6,7 @@
   --gs:0 8px 32px rgba(0,0,0,0.5),0 2px 8px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.07);
 }
 html{scroll-behavior:smooth}
-body{background:#050505;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6}
+.landing-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* cursor */
 #cg{position:fixed;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.10) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);mix-blend-mode:screen}
