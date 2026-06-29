@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import "./landing.css";
+import CinematicTimeline from "@/components/landing/CinematicTimeline";
 
 export default function LandingPage() {
   const [isGoalExpanded, setIsGoalExpanded] = useState(false);
@@ -79,68 +80,11 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* HERO */}
-      <section className="hero">
-        <div className="hmesh">
-          <div className="blob b1"></div>
-          <div className="blob b2"></div>
-          <div className="blob b3"></div>
-        </div>
-        <div className="hgrid"></div>
-
-        <div className="planet" aria-hidden="true">
-          <div className="oring o1">
-            <div className="onode" style={{ position: 'absolute', top: '-20px', left: '50%', transform: 'translateX(-50%)' }}>
-              <svg stroke="rgba(59,130,246,.8)" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            </div>
-            <div className="onode" style={{ position: 'absolute', bottom: '-20px', left: '50%', transform: 'translateX(-50%)' }}>
-              <svg stroke="rgba(168,85,247,.8)" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-          </div>
-          <div className="oring o2">
-            <div className="onode" style={{ position: 'absolute', top: '-20px', right: '28px' }}>
-              <svg stroke="rgba(6,182,212,.8)" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            </div>
-            <div className="onode" style={{ position: 'absolute', bottom: '-20px', left: '28px' }}>
-              <svg stroke="rgba(255,255,255,.4)" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-          </div>
-          <div className="oring o3">
-            <div className="onode" style={{ position: 'absolute', top: '-20px', left: '50%', transform: 'translateX(-50%)' }}>
-              <svg stroke="rgba(168,85,247,.6)" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            </div>
-          </div>
-          <div className="pcore">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 8px rgba(168,85,247,.9))' }}><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
-          </div>
-        </div>
-
-        <div className="hcontent">
-          <div className="hbadge"><div className="bdot"></div>The Next-Gen Study OS</div>
-          <h1 className="hh1">Learn Faster.<br/><span className="grad">Study Smarter.</span></h1>
-          <p className="hsub">Transform notes, PDFs, and lectures into flashcards, quizzes, and summaries &mdash; in seconds.</p>
-          <div className="hrow">
-            <Link href="/app" className="bprimary">Start Free <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>
-          </div>
-        </div>
-
-        <div className="scrollhint" aria-hidden="true">
-          <div className="sline"></div>
-          <span>SCROLL</span>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <div className="statsstrip">
-        <div className="sgrid">
-          <div className="sitem"><div className="snum">10&times;</div><div className="slbl2">Faster card creation</div></div>
-          <div className="sitem" style={{ transitionDelay: '.1s' }}><div className="snum">94%</div><div className="slbl2">Score improvement</div></div>
-          <div className="sitem" style={{ transitionDelay: '.2s' }}><div className="snum">2min</div><div className="slbl2">Notes to quiz</div></div>
-        </div>
-      </div>
+      {/* CINEMATIC TIMELINE (HERO REPLACEMENT) */}
+      <CinematicTimeline />
 
       {/* FLOW */}
-      <section className="flowsec">
+      <section className="flowsec relative z-10 pt-32">
         <div className="si">
           <div className="fhdr">
             <div className="slabel">How it works</div>
@@ -208,7 +152,7 @@ export default function LandingPage() {
       </section>
 
       {/* PROOF */}
-      <section className="proofsec">
+      <section className="proofsec relative z-10">
         <div className="si">
           <div className="playout">
             <div>
@@ -260,7 +204,7 @@ export default function LandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section className="featsec">
+      <section className="featsec relative z-10 pb-32">
         <div className="si">
           <div className="rev"><div className="slabel">What you get</div></div>
           <h2 className="sh2 rev" style={{ transitionDelay: '.1s' }}>Everything you need.<br/>Nothing you don't.</h2>
@@ -311,17 +255,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="ctasec">
-        <div className="ctacard" id="ctacard">
-          <h2 className="sh2">Join the revolution.</h2>
-          <p>Ready to upgrade your grades? Stop taking notes and start actually learning. Free to start, no card required.</p>
-          <Link href="/app" className="bprimary">Launch App Now <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>
-        </div>
-      </section>
-
       {/* FOOTER */}
-      <footer>
+      <footer className="relative z-10">
         <div className="fgridf">
           <div className="fbrand">
             <div className="nlogo">

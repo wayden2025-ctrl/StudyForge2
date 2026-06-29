@@ -1,0 +1,92 @@
+"use client";
+
+import { motion, MotionValue, useTransform } from "framer-motion";
+
+export default function Act4Transformation({ progress }: { progress: MotionValue<number> }) {
+  // Global visibility
+  const opacity = useTransform(progress, [0.4, 0.45, 0.68, 0.75], [0, 1, 1, 0]);
+  
+  // Title steps mapping
+  const titleUploadOpacity = useTransform(progress, [0.42, 0.45, 0.48, 0.5], [0, 1, 1, 0.3]);
+  const titleUnderstandOpacity = useTransform(progress, [0.5, 0.52, 0.58, 0.6], [0.3, 1, 1, 0.3]);
+  const titleLearnOpacity = useTransform(progress, [0.6, 0.62, 0.68, 0.7], [0.3, 1, 1, 1]);
+
+  // PDF Enter (0.42 - 0.5)
+  const pdfY = useTransform(progress, [0.42, 0.5], [-500, 0]);
+  const pdfOpacity = useTransform(progress, [0.42, 0.45, 0.6, 0.62], [0, 1, 1, 0]);
+
+  // AI Scan (0.5 - 0.6)
+  const scanY = useTransform(progress, [0.5, 0.6], ["-10%", "110%"]);
+  const scanOpacity = useTransform(progress, [0.48, 0.5, 0.58, 0.6], [0, 1, 1, 0]);
+  const particleScale = useTransform(progress, [0.58, 0.62], [0, 2]);
+  const particleOpacity = useTransform(progress, [0.58, 0.6, 0.62, 0.65], [0, 1, 1, 0]);
+
+  // Transformation Reveal (0.6 - 0.7)
+  const cardsY = useTransform(progress, [0.6, 0.65], [100, 0]);
+  const cardsOpacity = useTransform(progress, [0.6, 0.65], [0, 1]);
+  const cardsScale = useTransform(progress, [0.6, 0.65, 0.75], [0.8, 1, 1.2]);
+
+  return (
+    <motion.div 
+      style={{ opacity }} 
+      className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-40"
+    >
+      <div className="absolute top-32 flex items-center gap-6 text-[clamp(2rem,4vw,3.5rem)] font-bold tracking-tight">
+        <motion.span style={{ opacity: titleUploadOpacity }} className="text-white">Upload</motion.span>
+        <span className="text-neutral-700">&rarr;</span>
+        <motion.span style={{ opacity: titleUnderstandOpacity }} className="text-white">Understand</motion.span>
+        <span className="text-neutral-700">&rarr;</span>
+        <motion.span style={{ opacity: titleLearnOpacity }} className="text-brand-cyan">Learn</motion.span>
+      </div>
+
+      <div className="relative w-[500px] h-[500px] flex items-center justify-center mt-20">
+        
+        {/* PDF Document */}
+        <motion.div
+          style={{ y: pdfY, opacity: pdfOpacity }}
+          className="absolute w-64 h-80 bg-white border border-white/20 rounded-xl shadow-2xl p-6 flex flex-col"
+        >
+          <div className="w-1/2 h-4 bg-neutral-200 rounded-full mb-6" />
+          <div className="w-full h-2 bg-neutral-100 rounded-full mb-3" />
+          <div className="w-full h-2 bg-neutral-100 rounded-full mb-3" />
+          <div className="w-3/4 h-2 bg-neutral-100 rounded-full mb-6" />
+          <div className="w-full h-32 bg-neutral-50 rounded-lg mt-auto" />
+
+          {/* Scanner Line */}
+          <motion.div
+            style={{ top: scanY, opacity: scanOpacity }}
+            className="absolute left-[-10%] w-[120%] h-[4px] bg-brand-cyan shadow-[0_0_20px_4px_#06b6d4] rounded-full z-10"
+          />
+        </motion.div>
+
+        {/* Burst Particles */}
+        <motion.div
+          style={{ scale: particleScale, opacity: particleOpacity }}
+          className="absolute w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(6,182,212,0.8)_0%,transparent_60%)] rounded-full mix-blend-screen"
+        />
+
+        {/* Transformed Result */}
+        <motion.div
+          style={{ y: cardsY, opacity: cardsOpacity, scale: cardsScale }}
+          className="absolute flex gap-6"
+        >
+          <div className="w-48 h-64 bg-black/80 border border-brand-purple/50 rounded-2xl p-4 shadow-[0_0_40px_rgba(168,85,247,0.2)] backdrop-blur-xl flex flex-col justify-center items-center text-center">
+            <span className="text-brand-purple text-xs font-bold tracking-widest uppercase mb-2">Flashcard</span>
+            <div className="w-full h-1 bg-white/10 rounded-full mb-4" />
+            <span className="text-white text-lg font-medium">Spaced Repetition</span>
+          </div>
+          
+          <div className="w-48 h-64 bg-black/80 border border-brand-cyan/50 rounded-2xl p-4 shadow-[0_0_40px_rgba(6,182,212,0.2)] backdrop-blur-xl flex flex-col">
+            <span className="text-brand-cyan text-xs font-bold tracking-widest uppercase mb-4 text-center">Quiz</span>
+            <div className="space-y-3 mt-auto">
+              <div className="w-full h-8 border border-white/20 rounded-lg bg-white/5" />
+              <div className="w-full h-8 border border-brand-cyan rounded-lg bg-brand-cyan/20" />
+              <div className="w-full h-8 border border-white/20 rounded-lg bg-white/5" />
+            </div>
+          </div>
+        </motion.div>
+
+      </div>
+    </motion.div>
+  );
+}
