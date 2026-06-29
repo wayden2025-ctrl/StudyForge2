@@ -5,6 +5,8 @@ import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles } from "lucide-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { LogOut } from "lucide-react";
+import { logout } from "@/app/login/actions";
 
 const NAV_ITEMS = [
   { name: "Input Hub", href: "/app", icon: LayoutDashboard },
@@ -63,6 +65,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               );
             })}
           </nav>
+
+          {/* Logout Button */}
+          <div className="mt-auto pt-4 border-t border-white/10">
+            <form action={logout}>
+              <button
+                type="submit"
+                className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all text-neutral-400 hover:text-white hover:bg-white/5 hover:text-red-400"
+              >
+                <LogOut className="w-5 h-5" />
+                <span className="font-medium">Sign Out</span>
+              </button>
+            </form>
+          </div>
         </div>
       </motion.aside>
 
