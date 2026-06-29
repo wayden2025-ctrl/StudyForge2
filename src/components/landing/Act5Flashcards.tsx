@@ -3,11 +3,8 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Act5Flashcards({ progress }: { progress: MotionValue<number> }) {
-  // Visible from 0.68 to 0.82
-  const opacity = useTransform(progress, [0.65, 0.7, 0.8, 0.85], [0, 1, 1, 0]);
-
-  // Overall scene moves up slightly
-  const sceneY = useTransform(progress, [0.65, 0.85], [100, -200]);
+  const opacity = useTransform(progress, [0.325, 0.35, 0.4, 0.425], [0, 1, 1, 0]);
+  const sceneY = useTransform(progress, [0.325, 0.425], [100, -200]);
 
   return (
     <motion.div 
@@ -22,13 +19,10 @@ export default function Act5Flashcards({ progress }: { progress: MotionValue<num
 
       <div className="relative w-[800px] h-[400px] flex items-center justify-center" style={{ transformStyle: 'preserve-3d' }}>
         {[...Array(5)].map((_, i) => {
-          // Parallax calculation
-          // Front cards move faster, back cards move slower
-          const depth = i - 2; // -2, -1, 0, 1, 2
-          
+          const depth = i - 2; 
           const yOffset = useTransform(
             progress, 
-            [0.65, 0.85], 
+            [0.325, 0.425], 
             [depth * 80 + 200, depth * -80 - 200]
           );
           
@@ -36,7 +30,7 @@ export default function Act5Flashcards({ progress }: { progress: MotionValue<num
           const rotateY = depth * 15;
           const rotateX = depth * 5 + 10;
           
-          const scale = useTransform(progress, [0.65, 0.75, 0.85], [0.8, 1, 0.8]);
+          const scale = useTransform(progress, [0.325, 0.375, 0.425], [0.8, 1, 0.8]);
 
           return (
             <motion.div

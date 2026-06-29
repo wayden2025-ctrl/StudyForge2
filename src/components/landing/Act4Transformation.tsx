@@ -3,28 +3,23 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Act4Transformation({ progress }: { progress: MotionValue<number> }) {
-  // Global visibility
-  const opacity = useTransform(progress, [0.4, 0.45, 0.68, 0.75], [0, 1, 1, 0]);
+  const opacity = useTransform(progress, [0.2, 0.225, 0.34, 0.375], [0, 1, 1, 0]);
   
-  // Title steps mapping
-  const titleUploadOpacity = useTransform(progress, [0.42, 0.45, 0.48, 0.5], [0, 1, 1, 0.3]);
-  const titleUnderstandOpacity = useTransform(progress, [0.5, 0.52, 0.58, 0.6], [0.3, 1, 1, 0.3]);
-  const titleLearnOpacity = useTransform(progress, [0.6, 0.62, 0.68, 0.7], [0.3, 1, 1, 1]);
+  const titleUploadOpacity = useTransform(progress, [0.21, 0.225, 0.24, 0.25], [0, 1, 1, 0.3]);
+  const titleUnderstandOpacity = useTransform(progress, [0.25, 0.26, 0.29, 0.3], [0.3, 1, 1, 0.3]);
+  const titleLearnOpacity = useTransform(progress, [0.3, 0.31, 0.34, 0.35], [0.3, 1, 1, 1]);
 
-  // PDF Enter (0.42 - 0.5)
-  const pdfY = useTransform(progress, [0.42, 0.5], [-500, 0]);
-  const pdfOpacity = useTransform(progress, [0.42, 0.45, 0.6, 0.62], [0, 1, 1, 0]);
+  const pdfY = useTransform(progress, [0.21, 0.25], [-500, 0]);
+  const pdfOpacity = useTransform(progress, [0.21, 0.225, 0.3, 0.31], [0, 1, 1, 0]);
 
-  // AI Scan (0.5 - 0.6)
-  const scanY = useTransform(progress, [0.5, 0.6], ["-10%", "110%"]);
-  const scanOpacity = useTransform(progress, [0.48, 0.5, 0.58, 0.6], [0, 1, 1, 0]);
-  const particleScale = useTransform(progress, [0.58, 0.62], [0, 2]);
-  const particleOpacity = useTransform(progress, [0.58, 0.6, 0.62, 0.65], [0, 1, 1, 0]);
+  const scanY = useTransform(progress, [0.25, 0.3], ["-10%", "110%"]);
+  const scanOpacity = useTransform(progress, [0.24, 0.25, 0.29, 0.3], [0, 1, 1, 0]);
+  const particleScale = useTransform(progress, [0.29, 0.31], [0, 2]);
+  const particleOpacity = useTransform(progress, [0.29, 0.3, 0.31, 0.325], [0, 1, 1, 0]);
 
-  // Transformation Reveal (0.6 - 0.7)
-  const cardsY = useTransform(progress, [0.6, 0.65], [100, 0]);
-  const cardsOpacity = useTransform(progress, [0.6, 0.65], [0, 1]);
-  const cardsScale = useTransform(progress, [0.6, 0.65, 0.75], [0.8, 1, 1.2]);
+  const cardsY = useTransform(progress, [0.3, 0.325], [100, 0]);
+  const cardsOpacity = useTransform(progress, [0.3, 0.325], [0, 1]);
+  const cardsScale = useTransform(progress, [0.3, 0.325, 0.375], [0.8, 1, 1.2]);
 
   return (
     <motion.div 
@@ -41,7 +36,6 @@ export default function Act4Transformation({ progress }: { progress: MotionValue
 
       <div className="relative w-[500px] h-[500px] flex items-center justify-center mt-20">
         
-        {/* PDF Document */}
         <motion.div
           style={{ y: pdfY, opacity: pdfOpacity }}
           className="absolute w-64 h-80 bg-white border border-white/20 rounded-xl shadow-2xl p-6 flex flex-col"
@@ -52,20 +46,17 @@ export default function Act4Transformation({ progress }: { progress: MotionValue
           <div className="w-3/4 h-2 bg-neutral-100 rounded-full mb-6" />
           <div className="w-full h-32 bg-neutral-50 rounded-lg mt-auto" />
 
-          {/* Scanner Line */}
           <motion.div
             style={{ top: scanY, opacity: scanOpacity }}
             className="absolute left-[-10%] w-[120%] h-[4px] bg-brand-cyan shadow-[0_0_20px_4px_#06b6d4] rounded-full z-10"
           />
         </motion.div>
 
-        {/* Burst Particles */}
         <motion.div
           style={{ scale: particleScale, opacity: particleOpacity }}
           className="absolute w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(6,182,212,0.8)_0%,transparent_60%)] rounded-full mix-blend-screen"
         />
 
-        {/* Transformed Result */}
         <motion.div
           style={{ y: cardsY, opacity: cardsOpacity, scale: cardsScale }}
           className="absolute flex gap-6"

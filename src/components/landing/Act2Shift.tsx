@@ -3,15 +3,10 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Act2Shift({ progress }: { progress: MotionValue<number> }) {
-  // Fade in at 0.12, peak at 0.2, hold until 0.28, fade out by 0.35
-  const opacity = useTransform(progress, [0.12, 0.2, 0.28, 0.35], [0, 1, 1, 0]);
-  
-  // Bring it forward from depth
-  const z = useTransform(progress, [0.12, 0.35], [200, -200]);
-  
-  // Glow intensity increases as it shifts
-  const glowOpacity = useTransform(progress, [0.15, 0.25], [0, 1]);
-  const scale = useTransform(progress, [0.12, 0.25], [0.8, 1]);
+  const opacity = useTransform(progress, [0.06, 0.1, 0.14, 0.175], [0, 1, 1, 0]);
+  const z = useTransform(progress, [0.06, 0.175], [200, -200]);
+  const glowOpacity = useTransform(progress, [0.075, 0.125], [0, 1]);
+  const scale = useTransform(progress, [0.06, 0.125], [0.8, 1]);
 
   return (
     <motion.div 
@@ -24,28 +19,21 @@ export default function Act2Shift({ progress }: { progress: MotionValue<number> 
         </h2>
       </div>
 
-      {/* Central Organizing Glow */}
       <motion.div 
         style={{ opacity: glowOpacity }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-cyan/20 blur-[150px] rounded-full z-0"
       />
       
-      {/* Organized Papers (Converging) */}
       <div className="absolute inset-0 z-0">
         {[...Array(4)].map((_, i) => {
-          // Papers start far out and move towards center
-          const xMove = useTransform(progress, [0.12, 0.28], [i % 2 === 0 ? -500 : 500, 0]);
-          const yMove = useTransform(progress, [0.12, 0.28], [i < 2 ? -400 : 400, 0]);
-          const rotate = useTransform(progress, [0.12, 0.28], [i * 45, 0]);
+          const xMove = useTransform(progress, [0.06, 0.14], [i % 2 === 0 ? -500 : 500, 0]);
+          const yMove = useTransform(progress, [0.06, 0.14], [i < 2 ? -400 : 400, 0]);
+          const rotate = useTransform(progress, [0.06, 0.14], [i * 45, 0]);
           
           return (
             <motion.div
               key={i}
-              style={{
-                x: xMove,
-                y: yMove,
-                rotateZ: rotate,
-              }}
+              style={{ x: xMove, y: yMove, rotateZ: rotate }}
               className="absolute top-1/2 left-1/2 -ml-24 -mt-32 w-48 h-64 bg-white/10 border border-white/20 rounded-xl backdrop-blur-xl shadow-[0_0_50px_rgba(255,255,255,0.1)] flex flex-col p-4"
             >
               <div className="w-full h-full border border-dashed border-white/20 rounded-lg flex items-center justify-center">

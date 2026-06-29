@@ -3,12 +3,9 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Act3Reveal({ progress }: { progress: MotionValue<number> }) {
-  // Fade in at 0.28, hold until 0.42, fade out by 0.5
-  const opacity = useTransform(progress, [0.28, 0.35, 0.42, 0.5], [0, 1, 1, 0]);
-  
-  // Product comes from deep Z-axis to foreground
-  const z = useTransform(progress, [0.28, 0.5], [400, -200]);
-  const blur = useTransform(progress, [0.28, 0.35], ["blur(20px)", "blur(0px)"]);
+  const opacity = useTransform(progress, [0.14, 0.175, 0.21, 0.25], [0, 1, 1, 0]);
+  const z = useTransform(progress, [0.14, 0.25], [400, -200]);
+  const blur = useTransform(progress, [0.14, 0.175], ["blur(20px)", "blur(0px)"]);
 
   return (
     <motion.div 
@@ -24,22 +21,18 @@ export default function Act3Reveal({ progress }: { progress: MotionValue<number>
         </p>
       </div>
 
-      {/* Glowing Product Core */}
       <div className="relative flex items-center justify-center mt-8">
-        {/* Under-glow platform */}
         <motion.div 
           animate={{ rotateX: 60, rotateZ: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           className="absolute w-[400px] h-[400px] rounded-full border border-brand-cyan/30 shadow-[0_0_80px_rgba(6,182,212,0.2)] bg-brand-cyan/5"
         />
         
-        {/* Floating Product UI Box */}
         <motion.div 
           animate={{ y: [0, -15, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="relative z-10 w-[340px] h-[420px] bg-black/60 border border-white/20 rounded-3xl backdrop-blur-2xl shadow-2xl p-6 flex flex-col items-center justify-center overflow-hidden"
         >
-          {/* Inner scan effect */}
           <motion.div 
             animate={{ top: ["-10%", "110%"] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}

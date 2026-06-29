@@ -3,11 +3,8 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Act1Problem({ progress }: { progress: MotionValue<number> }) {
-  // Fade in at 0, stay visible until 0.12, fade out completely by 0.18
-  const opacity = useTransform(progress, [0, 0.12, 0.18], [1, 1, 0]);
-  
-  // As user scrolls, push the entire scene back slightly
-  const z = useTransform(progress, [0, 0.18], [0, -400]);
+  const opacity = useTransform(progress, [0, 0.06, 0.09], [1, 1, 0]);
+  const z = useTransform(progress, [0, 0.09], [0, -400]);
 
   return (
     <motion.div 
@@ -23,12 +20,10 @@ export default function Act1Problem({ progress }: { progress: MotionValue<number
         </p>
       </div>
 
-      {/* Scattered Papers Layer */}
       <div className="absolute inset-0 z-0">
         {[...Array(6)].map((_, i) => {
-          // Different scroll behaviors for parallax
-          const yMove = useTransform(progress, [0, 0.18], [0, (i % 2 === 0 ? -200 : 200) + i * 50]);
-          const rotate = useTransform(progress, [0, 0.18], [i * 15 - 30, (i * 15 - 30) + (i % 2 === 0 ? 45 : -45)]);
+          const yMove = useTransform(progress, [0, 0.09], [0, (i % 2 === 0 ? -200 : 200) + i * 50]);
+          const rotate = useTransform(progress, [0, 0.09], [i * 15 - 30, (i * 15 - 30) + (i % 2 === 0 ? 45 : -45)]);
           
           return (
             <motion.div

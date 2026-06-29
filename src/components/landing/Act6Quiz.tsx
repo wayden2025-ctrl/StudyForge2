@@ -3,12 +3,9 @@
 import { motion, MotionValue, useTransform } from "framer-motion";
 
 export default function Act6Quiz({ progress }: { progress: MotionValue<number> }) {
-  // Visible from 0.80 to 0.95
-  const opacity = useTransform(progress, [0.78, 0.83, 0.92, 0.96], [0, 1, 1, 0]);
-  
-  // Entire scene scales up slightly as it approaches
-  const sceneScale = useTransform(progress, [0.78, 0.95], [0.85, 1.05]);
-  const sceneZ = useTransform(progress, [0.78, 0.95], [200, -100]);
+  const opacity = useTransform(progress, [0.39, 0.415, 0.46, 0.48], [0, 1, 1, 0]);
+  const sceneScale = useTransform(progress, [0.39, 0.475], [0.85, 1.05]);
+  const sceneZ = useTransform(progress, [0.39, 0.475], [200, -100]);
 
   return (
     <motion.div 
@@ -35,23 +32,17 @@ export default function Act6Quiz({ progress }: { progress: MotionValue<number> }
 
         <div className="space-y-4">
           {[
-            { text: "Logistic Regression", correct: false, range: [0.82, 0.84] },
-            { text: "K-Means Clustering", correct: false, range: [0.83, 0.85] },
-            { text: "Linear Regression", correct: true, range: [0.84, 0.86] },
-            { text: "Decision Tree Classification", correct: false, range: [0.85, 0.87] },
+            { text: "Logistic Regression", correct: false, range: [0.41, 0.42] },
+            { text: "K-Means Clustering", correct: false, range: [0.415, 0.425] },
+            { text: "Linear Regression", correct: true, range: [0.42, 0.43] },
+            { text: "Decision Tree Classification", correct: false, range: [0.425, 0.435] },
           ].map((opt, i) => {
             const optOpacity = useTransform(progress, opt.range, [0, 1]);
             const optX = useTransform(progress, opt.range, [30, 0]);
-            
-            // Correct answer glows when reached
-            const glowActive = opt.correct ? useTransform(progress, [0.87, 0.89], [0, 1]) : 0;
+            const glowActive = opt.correct ? useTransform(progress, [0.435, 0.445], [0, 1]) : 0;
 
             return (
-              <motion.div
-                key={i}
-                style={{ opacity: optOpacity, x: optX }}
-                className="relative"
-              >
+              <motion.div key={i} style={{ opacity: optOpacity, x: optX }} className="relative">
                 <motion.div 
                   style={{ opacity: glowActive }}
                   className="absolute inset-0 bg-brand-cyan/20 border-brand-cyan rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.4)]"
