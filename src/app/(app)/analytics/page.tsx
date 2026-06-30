@@ -35,11 +35,11 @@ export default async function AnalyticsPage() {
               <div className="w-16 h-16 bg-brand-cyan/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Lock className="w-8 h-8 text-brand-cyan" />
               </div>
-              <h3 className="text-3xl font-bold mb-4 group-hover:text-brand-cyan transition-colors">Advanced Study Analytics</h3>
-              <p className="text-neutral-300 max-w-md text-lg mb-8">
+              <h3 className="text-4xl font-bold mb-4 group-hover:text-brand-cyan transition-colors font-syne tracking-tight text-white">Advanced Study Analytics</h3>
+              <p className="text-neutral-300 max-w-md text-lg mb-8 leading-relaxed font-medium">
                 Upgrade to Pro to unlock deep insights into your study habits, track your streak, and visualize your learning progress over time.
               </p>
-              <div className="bg-brand-cyan text-black font-bold px-8 py-3 rounded-full group-hover:bg-brand-cyan/90 transition-transform group-hover:scale-105 shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+              <div className="bg-brand-cyan text-black font-bold px-10 py-4 rounded-full group-hover:bg-brand-cyan/90 transition-transform group-hover:scale-[1.02] shadow-[0_0_20px_rgba(6,182,212,0.4)] text-lg">
                 Upgrade to Pro
               </div>
             </a>

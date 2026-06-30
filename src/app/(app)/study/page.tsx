@@ -3,7 +3,7 @@
 import { PageWrapper } from "@/components/PageWrapper";
 import { Card } from "@/components/ui/card";
 import { useStudyStore } from "@/store/useStudyStore";
-import { BookOpen, Sparkles, BrainCircuit, ChevronDown, Save, Loader2, Download, Copy } from "lucide-react";
+import { BookOpen, Sparkles, BrainCircuit, ChevronDown, Save, Loader2, Download, Copy, Share2, Lock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
@@ -17,6 +17,8 @@ export default function StudyPage() {
   const [expandedConcept, setExpandedConcept] = useState<number | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [tier, setTier] = useState("free");
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
@@ -44,6 +46,37 @@ export default function StudyPage() {
     const markdown = `# ${data.summary}\n\n## Key Concepts\n${data.key_concepts.map(c => `- **${c.title}**: ${c.description}`).join('\n')}\n\n## Detailed Notes\n${data.detailed_notes}\n\n## Mnemonics\n${data.mnemonics.map(m => `- ${m}`).join('\n')}`;
     navigator.clipboard.writeText(markdown);
     alert("Copied to clipboard! Paste directly into Notion.");
+  };
+
+  const handleShare = async () => {
+    if (!isPro) {
+      setShowShareModal(true);
+      return;
+    }
+    if (!data) return;
+    setIsSharing(true);
+    try {
+      const res = await fetch("/api/share-note", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: data.summary,
+          summary: data.summary,
+          key_concepts: data.key_concepts,
+          detailed_notes: data.detailed_notes,
+          mnemonics: data.mnemonics,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Failed to share");
+      const shareUrl = `${window.location.origin}/share/${json.share_token}`;
+      await navigator.clipboard.writeText(shareUrl);
+      alert(`✅ Share link copied to clipboard!\n${shareUrl}`);
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setIsSharing(false);
+    }
   };
 
   const handleSaveNote = async () => {
@@ -93,6 +126,49 @@ export default function StudyPage() {
 
   return (
     <PageWrapper>
+      {/* Share Paywall Modal */}
+      <AnimatePresence>
+        {showShareModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#0f0f0f] border border-white/10 p-8 rounded-3xl max-w-md w-full shadow-2xl relative overflow-hidden text-center"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple to-brand-cyan" />
+              <div className="w-16 h-16 bg-brand-cyan/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Share2 className="w-8 h-8 text-brand-cyan" />
+              </div>
+              <h2 className="text-2xl font-bold mb-4 font-syne tracking-tight text-white">Share with Friends</h2>
+              <p className="text-neutral-300 mb-8 leading-relaxed font-medium">
+                Sharing is a <span className="text-brand-cyan font-bold">Pro-exclusive</span> feature. Upgrade to instantly generate a link and send your AI study guides to classmates and study groups!
+              </p>
+              <div className="flex flex-col space-y-3">
+                <Button
+                  onClick={() => { setShowShareModal(false); window.location.href = '/upgrade'; }}
+                  className="w-full bg-gradient-to-r from-brand-purple to-brand-cyan hover:from-brand-cyan hover:to-brand-purple text-white font-bold shadow-lg rounded-xl py-6 text-lg transition-transform hover:scale-[1.02]"
+                >
+                  Upgrade to Pro
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => setShowShareModal(false)}
+                  className="w-full text-neutral-400 hover:text-white rounded-xl"
+                >
+                  Maybe later
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="flex items-center justify-between">
           <div>
@@ -138,6 +214,15 @@ export default function StudyPage() {
                 Take Quiz
               </Button>
             </Link>
+            <Button
+              variant="outline"
+              onClick={handleShare}
+              disabled={isSharing}
+              className="rounded-xl px-4 py-2 h-auto border-brand-cyan/30 hover:bg-brand-cyan hover:text-black text-brand-cyan font-bold transition-all hover:border-brand-cyan shadow-[0_0_15px_rgba(6,182,212,0.15)] hover:shadow-[0_0_25px_rgba(6,182,212,0.4)]"
+            >
+              {isSharing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Share2 className="w-4 h-4 mr-2" />}
+              Share
+            </Button>
           </div>
         </div>
 

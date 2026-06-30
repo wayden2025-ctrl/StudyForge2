@@ -153,21 +153,21 @@ export default function AppHubPage() {
               <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Sparkles className="w-8 h-8 text-brand-purple" />
               </div>
-              <h2 className="text-2xl font-bold mb-4">Out of Generations</h2>
-              <p className="text-neutral-300 mb-8 leading-relaxed">
+              <h2 className="text-2xl font-bold mb-4 font-syne tracking-tight text-white">Out of Generations</h2>
+              <p className="text-neutral-300 mb-8 leading-relaxed font-medium">
                 You've hit your weekly limit for the Basic plan. You can <span className="text-white font-bold">wait until next week</span> when your limit automatically refreshes, or upgrade to Pro for <span className="text-brand-cyan font-bold">unlimited</span> generations right now!
               </p>
               <div className="flex flex-col space-y-3">
                 <Button 
                   onClick={() => router.push('/upgrade')}
-                  className="w-full bg-gradient-to-r from-brand-purple to-brand-cyan hover:from-brand-cyan hover:to-brand-purple text-white font-bold shadow-lg"
+                  className="w-full bg-gradient-to-r from-brand-purple to-brand-cyan hover:from-brand-cyan hover:to-brand-purple text-white font-bold shadow-lg rounded-xl py-6 text-lg transition-transform hover:scale-[1.02]"
                 >
                   Upgrade to Pro
                 </Button>
                 <Button 
                   variant="ghost" 
                   onClick={() => setShowLimitModal(false)}
-                  className="w-full text-neutral-400 hover:text-white"
+                  className="w-full text-neutral-400 hover:text-white rounded-xl"
                 >
                   Maybe later
                 </Button>

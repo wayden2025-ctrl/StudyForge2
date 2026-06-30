@@ -56,8 +56,8 @@ export default async function LibraryPage() {
                 <div className="w-12 h-12 bg-brand-purple/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <Lock className="w-6 h-6 text-brand-purple" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-brand-purple transition-colors">Unlock Folders</h3>
-                <p className="text-neutral-300 max-w-sm">
+                <h3 className="text-2xl font-bold mb-2 group-hover:text-brand-purple transition-colors font-syne tracking-tight text-white">Unlock Folders</h3>
+                <p className="text-neutral-300 max-w-sm leading-relaxed font-medium">
                   Upgrade to Pro to organize your study sets, flashcards, and notes into custom folders.
                 </p>
               </a>
