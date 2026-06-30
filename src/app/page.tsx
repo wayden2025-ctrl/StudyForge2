@@ -87,6 +87,12 @@ export default function LandingPage() {
               Feedback
             </a>
             <Link 
+              href="/reviews" 
+              className="text-white/60 hover:text-yellow-400 font-medium text-[0.95rem] transition-colors"
+            >
+              Reviews
+            </Link>
+            <Link 
               href="/upgrade" 
               className="text-white/60 hover:text-white font-medium text-[0.95rem] transition-colors"
             >
