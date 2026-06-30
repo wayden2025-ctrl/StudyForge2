@@ -115,7 +115,7 @@ export default function LandingPage() {
       {/* SOCIAL PROOF / TESTIMONIALS */}
       <section className="relative z-10 py-24 px-4" style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(168,85,247,0.03) 50%, transparent 100%)' }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16 rev">
+          <div className="text-center mb-16">
             <p className="text-brand-cyan font-bold text-sm uppercase tracking-widest mb-4">Real Student Reviews</p>
             <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.2 }}>
               Students Are Obsessed
@@ -150,7 +150,7 @@ export default function LandingPage() {
             ].map((t, i) => (
               <div
                 key={i}
-                className="rev p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <div className="flex items-center gap-1 mb-4">
@@ -201,7 +201,7 @@ export default function LandingPage() {
             ].map((t, i) => (
               <div
                 key={i + 3}
-                className="rev p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
                 style={{ animationDelay: `${(i + 3) * 0.15}s` }}
               >
                 <div className="flex items-center gap-1 mb-4">

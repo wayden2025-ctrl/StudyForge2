@@ -218,7 +218,7 @@ export default function StudyPage() {
               variant="outline"
               onClick={handleShare}
               disabled={isSharing}
-              className="rounded-xl px-4 py-2 h-auto border-brand-cyan/30 hover:bg-brand-cyan hover:text-black text-brand-cyan font-bold transition-all hover:border-brand-cyan shadow-[0_0_15px_rgba(6,182,212,0.15)] hover:shadow-[0_0_25px_rgba(6,182,212,0.4)]"
+              className="rounded-xl px-4 py-2 h-auto border-brand-cyan/30 hover:bg-brand-cyan hover:text-black text-brand-cyan font-bold transition-all hover:border-brand-cyan"
             >
               {isSharing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Share2 className="w-4 h-4 mr-2" />}
               Share
