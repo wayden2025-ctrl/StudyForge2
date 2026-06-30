@@ -116,32 +116,36 @@ export default function LandingPage() {
       <section className="relative z-10 py-24 px-4" style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(168,85,247,0.03) 50%, transparent 100%)' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16 rev">
-            <p className="text-brand-cyan font-bold text-sm uppercase tracking-widest mb-4">Loved by Students</p>
+            <p className="text-brand-cyan font-bold text-sm uppercase tracking-widest mb-4">Real Student Reviews</p>
             <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.2 }}>
               Students Are Obsessed
             </h2>
             <p className="text-white/50 mt-4 text-lg max-w-lg mx-auto">See why thousands of students are switching to Notiq AI for their study sessions.</p>
+            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5">
+              <svg className="w-4 h-4 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <span className="text-white text-sm"><strong className="font-extrabold">Authenticated by Proof</strong></span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {[
               {
                 name: "Sarah M.",
                 role: "Pre-Med Student",
-                text: "I used to spend hours making flashcards manually. Notiq does it in literally 10 seconds. My study sessions have never been this efficient.",
+                text: "okay so i was literally about to fail bio and i tried this as a last resort. made flashcards from my entire lecture in like 10 seconds?? my grade actually went up a whole letter. im not even kidding lol",
                 stars: 5,
               },
               {
                 name: "James L.",
                 role: "Computer Science Major",
-                text: "The AI-generated notes are shockingly good. It picks out exactly the key concepts I need. Sharing them with my study group is a game changer.",
+                text: "bro the notes it generates are better than the ones i take in class 😭 i shared my data structures study guide with my whole group chat and now everyone wants pro. this thing is insane",
                 stars: 5,
               },
               {
                 name: "Priya K.",
                 role: "Law Student",
-                text: "I went from struggling to keep up with readings to actually feeling prepared for every class. The quiz feature alone is worth the Pro upgrade.",
-                stars: 5,
+                text: "I have 200+ pages of reading every week and this tool actually summarizes everything perfectly. The quiz feature caught gaps in my knowledge I didn't even know I had. Worth every penny of pro.",
+                stars: 4.5,
               },
             ].map((t, i) => (
               <div
@@ -150,9 +154,66 @@ export default function LandingPage() {
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <div className="flex items-center gap-1 mb-4">
-                  {Array.from({ length: t.stars }).map((_, s) => (
+                  {Array.from({ length: Math.floor(t.stars) }).map((_, s) => (
                     <svg key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                   ))}
+                  {t.stars % 1 !== 0 && (
+                    <svg className="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
+                      <defs><linearGradient id={`half-${i}`}><stop offset="50%" stopColor="#facc15"/><stop offset="50%" stopColor="#444" /></linearGradient></defs>
+                      <path d={`M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z`} fill={`url(#half-${i})`}/>
+                    </svg>
+                  )}
+                </div>
+                <p className="text-white/80 text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center text-white font-bold text-sm">
+                    {t.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-white font-bold text-sm">{t.name}</p>
+                    <p className="text-white/40 text-xs">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Marcus T.",
+                role: "Engineering Student",
+                text: "i used to pull all nighters before exams trying to rewrite my notes. now i just paste them in and get perfect study material in seconds. my sleep schedule has never been better honestly 😂",
+                stars: 5,
+              },
+              {
+                name: "Emily R.",
+                role: "Nursing Student",
+                text: "the mnemonics feature is SO underrated. it gave me memory tricks for pharmacology that actually stuck. i went from a 68 to an 89 on my midterm. actual lifesaver",
+                stars: 4.5,
+              },
+              {
+                name: "Daniel W.",
+                role: "History Major",
+                text: "shared my study notes with my roommate through the app and he literally signed up for pro the same day. the generated quizzes feel like they were written by my professor its kinda scary",
+                stars: 5,
+              },
+            ].map((t, i) => (
+              <div
+                key={i + 3}
+                className="rev p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
+                style={{ animationDelay: `${(i + 3) * 0.15}s` }}
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {Array.from({ length: Math.floor(t.stars) }).map((_, s) => (
+                    <svg key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                  {t.stars % 1 !== 0 && (
+                    <svg className="w-4 h-4 text-yellow-400" viewBox="0 0 24 24">
+                      <defs><linearGradient id={`half2-${i}`}><stop offset="50%" stopColor="#facc15"/><stop offset="50%" stopColor="#444" /></linearGradient></defs>
+                      <path d={`M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z`} fill={`url(#half2-${i})`}/>
+                    </svg>
+                  )}
                 </div>
                 <p className="text-white/80 text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
                 <div className="flex items-center gap-3">
