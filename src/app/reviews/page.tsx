@@ -12,7 +12,7 @@ const REVIEWS = [
   {
     name: "James L.",
     role: "Computer Science Major",
-    text: "bro the notes it generates are better than the ones i take in class 😭 i shared my data structures study guide with my whole group chat and now everyone wants pro. this thing is insane",
+    text: "bro the notes it generates are better than the ones i take in class. i shared my data structures study guide with my whole group chat and now everyone wants pro. this thing is insane",
     stars: 5,
   },
   {
@@ -24,7 +24,7 @@ const REVIEWS = [
   {
     name: "Marcus T.",
     role: "Engineering Student",
-    text: "i used to pull all nighters before exams trying to rewrite my notes. now i just paste them in and get perfect study material in seconds. my sleep schedule has never been better honestly 😂",
+    text: "i used to pull all nighters before exams trying to rewrite my notes. now i just paste them in and get perfect study material in seconds. my sleep schedule has never been better honestly",
     stars: 5,
   },
   {
