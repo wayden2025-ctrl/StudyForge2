@@ -112,7 +112,63 @@ export default function LandingPage() {
       {/* CINEMATIC TIMELINE (HERO REPLACEMENT) */}
       <CinematicTimeline />
 
+      {/* SOCIAL PROOF / TESTIMONIALS */}
+      <section className="relative z-10 py-24 px-4" style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(168,85,247,0.03) 50%, transparent 100%)' }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16 rev">
+            <p className="text-brand-cyan font-bold text-sm uppercase tracking-widest mb-4">Loved by Students</p>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.2 }}>
+              Students Are Obsessed
+            </h2>
+            <p className="text-white/50 mt-4 text-lg max-w-lg mx-auto">See why thousands of students are switching to Notiq AI for their study sessions.</p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Sarah M.",
+                role: "Pre-Med Student",
+                text: "I used to spend hours making flashcards manually. Notiq does it in literally 10 seconds. My study sessions have never been this efficient.",
+                stars: 5,
+              },
+              {
+                name: "James L.",
+                role: "Computer Science Major",
+                text: "The AI-generated notes are shockingly good. It picks out exactly the key concepts I need. Sharing them with my study group is a game changer.",
+                stars: 5,
+              },
+              {
+                name: "Priya K.",
+                role: "Law Student",
+                text: "I went from struggling to keep up with readings to actually feeling prepared for every class. The quiz feature alone is worth the Pro upgrade.",
+                stars: 5,
+              },
+            ].map((t, i) => (
+              <div
+                key={i}
+                className="rev p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
+                style={{ animationDelay: `${i * 0.15}s` }}
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {Array.from({ length: t.stars }).map((_, s) => (
+                    <svg key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                </div>
+                <p className="text-white/80 text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center text-white font-bold text-sm">
+                    {t.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-white font-bold text-sm">{t.name}</p>
+                    <p className="text-white/40 text-xs">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FOOTER */}
       <footer className="relative z-10">

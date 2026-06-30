@@ -1,9 +1,12 @@
 import { createClient } from "@/utils/supabase/server";
 import { PageWrapper } from "@/components/PageWrapper";
 import { Card } from "@/components/ui/card";
-import { BookOpen, Bookmark, FileText, Calendar, Folder, Plus, Lock } from "lucide-react";
+import { BookOpen, Bookmark, FileText, Calendar, Folder, Plus, Lock, Search } from "lucide-react";
+import { LibrarySearch } from "./LibrarySearch";
 
-export default async function LibraryPage() {
+export default async function LibraryPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q } = await searchParams;
+  const query = q?.toLowerCase() || "";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -40,6 +43,9 @@ export default async function LibraryPage() {
           <h1 className="text-3xl font-bold mb-2">My Library</h1>
           <p className="text-neutral-400">Your saved study notes and flashcards.</p>
         </div>
+
+        {/* Search Bar */}
+        <LibrarySearch initialQuery={query} />
 
         {/* Folders Section */}
         <div className="space-y-4">
@@ -88,9 +94,13 @@ export default async function LibraryPage() {
           
           {!notes || notes.length === 0 ? (
             <p className="text-neutral-500 italic">No notes saved yet.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {notes.map((note: any) => (
+          ) : (() => {
+            const filtered = notes.filter((n: any) => !query || n.title?.toLowerCase().includes(query) || n.summary?.toLowerCase().includes(query));
+            return filtered.length === 0 ? (
+              <p className="text-neutral-500 italic">No notes match &ldquo;{q}&rdquo;</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filtered.map((note: any) => (
                 <Card key={note.id} className="p-6 bg-white/5 border-white/10 hover:border-brand-purple/50 transition-colors">
                   <h3 className="text-xl font-bold text-white mb-2">{note.title}</h3>
                   <div className="flex items-center text-xs text-neutral-500 mb-4">
@@ -105,8 +115,9 @@ export default async function LibraryPage() {
                   </p>
                 </Card>
               ))}
-            </div>
-          )}
+              </div>
+            );
+          })()}
         </div>
 
         <div className="space-y-6 pt-8 border-t border-white/10">
@@ -117,9 +128,13 @@ export default async function LibraryPage() {
 
           {!flashcards || flashcards.length === 0 ? (
             <p className="text-neutral-500 italic">No flashcards saved yet.</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {flashcards.map((fc: any) => (
+          ) : (() => {
+            const filtered = flashcards.filter((fc: any) => !query || fc.question?.toLowerCase().includes(query) || fc.answer?.toLowerCase().includes(query));
+            return filtered.length === 0 ? (
+              <p className="text-neutral-500 italic">No flashcards match &ldquo;{q}&rdquo;</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {filtered.map((fc: any) => (
                 <Card key={fc.id} className="p-6 flex flex-col justify-between bg-white/5 border-white/10">
                   <div className="mb-4">
                     <span className="text-xs font-bold text-brand-blue mb-2 block uppercase tracking-wider">Question</span>
@@ -131,8 +146,9 @@ export default async function LibraryPage() {
                   </div>
                 </Card>
               ))}
-            </div>
-          )}
+              </div>
+            );
+          })()}
         </div>
       </div>
     </PageWrapper>

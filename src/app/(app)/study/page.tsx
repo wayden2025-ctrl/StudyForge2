@@ -226,6 +226,28 @@ export default function StudyPage() {
           </div>
         </div>
 
+        {/* Mobile Toolbar */}
+        <div className="flex sm:hidden gap-2 flex-wrap">
+          <Button variant="outline" onClick={handleSaveNote} disabled={isSaving} className="flex-1 min-w-[calc(50%-0.25rem)] rounded-xl py-3 h-auto border-brand-purple/30 text-brand-purple font-bold text-xs">
+            {isSaving ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Save className="w-4 h-4 mr-1.5" />}
+            Save
+          </Button>
+          <Link href="/flashcards" className="flex-1 min-w-[calc(50%-0.25rem)]">
+            <Button variant="outline" className="w-full rounded-xl py-3 h-auto border-brand-blue/30 text-brand-blue font-bold text-xs">
+              <BookOpen className="w-4 h-4 mr-1.5" /> Flashcards
+            </Button>
+          </Link>
+          <Link href="/quiz" className="flex-1 min-w-[calc(50%-0.25rem)]">
+            <Button variant="outline" className="w-full rounded-xl py-3 h-auto border-brand-purple/30 text-brand-purple font-bold text-xs">
+              <BrainCircuit className="w-4 h-4 mr-1.5" /> Quiz
+            </Button>
+          </Link>
+          <Button variant="outline" onClick={handleShare} disabled={isSharing} className="flex-1 min-w-[calc(50%-0.25rem)] rounded-xl py-3 h-auto border-brand-cyan/30 text-brand-cyan font-bold text-xs">
+            {isSharing ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Share2 className="w-4 h-4 mr-1.5" />}
+            Share
+          </Button>
+        </div>
+
         <Card className="space-y-6">
           <div className="flex items-center space-x-3 text-brand-cyan mb-4">
             <Sparkles className="w-6 h-6" />
