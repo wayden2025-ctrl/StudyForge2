@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles, User } from "lucide-react";
+import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles, User, Zap } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -67,8 +67,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
+          {/* Upgrade Button */}
+          <div className="mt-auto pt-4 pb-2">
+            <Link href="/upgrade">
+              <div className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-gradient-to-r from-brand-purple/20 to-brand-blue/20 border border-brand-purple/30 text-white hover:opacity-90 transition-opacity cursor-pointer">
+                <div className="flex items-center space-x-3">
+                  <Zap className="w-5 h-5 text-brand-cyan fill-brand-cyan/20" />
+                  <span className="font-semibold text-sm">Upgrade to Pro</span>
+                </div>
+              </div>
+            </Link>
+          </div>
+
           {/* Logout Button */}
-          <div className="mt-auto pt-4 border-t border-white/10">
+          <div className="pt-2 border-t border-white/10">
             <form action={logout}>
               <button
                 type="submit"

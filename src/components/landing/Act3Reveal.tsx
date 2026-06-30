@@ -21,37 +21,41 @@ export default function Act3Reveal({ progress }: { progress: MotionValue<number>
         </p>
       </div>
 
-      <div className="relative flex items-center justify-center mt-8">
-        <motion.div 
-          animate={{ rotateX: 60, rotateZ: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute w-[400px] h-[400px] rounded-full border border-brand-cyan/30 shadow-[0_0_80px_rgba(6,182,212,0.2)] bg-brand-cyan/5"
+      <div className="relative flex flex-col items-center justify-end mt-8 h-[400px]">
+        {/* Central card upright */}
+        <motion.div
+          className="w-48 h-64 bg-white/10 border border-white/20 rounded-xl shadow-lg mb-4"
+          initial={{ opacity: 0, scale: 0.95, y: -20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         />
-        
-        <motion.div 
-          animate={{ y: [0, -15, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="relative z-10 w-[340px] h-[420px] bg-black/60 border border-white/20 rounded-3xl backdrop-blur-2xl shadow-2xl p-6 flex flex-col items-center justify-center overflow-hidden"
+        {/* Fan‑out cards below, rotating left */}
+        <motion.div
+          className="relative w-full h-full"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: { transition: { staggerChildren: 0.15 } },
+          }}
         >
-          <motion.div 
-            animate={{ top: ["-10%", "110%"] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-            className="absolute left-0 w-full h-[2px] bg-brand-cyan shadow-[0_0_15px_#06b6d4] z-20"
-          />
-          
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center mb-6 shadow-lg">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          
-          <div className="w-3/4 h-3 bg-white/20 rounded-full mb-3" />
-          <div className="w-1/2 h-3 bg-white/10 rounded-full mb-8" />
-          
-          <div className="flex gap-2 w-full mt-auto">
-            <div className="flex-1 h-20 bg-white/5 rounded-xl border border-white/10" />
-            <div className="flex-1 h-20 bg-white/5 rounded-xl border border-white/10" />
-          </div>
+          {Array.from({ length: 4 }).map((_, i) => {
+            const verticalOffset = (i + 1) * 30;
+            const rotateDeg = -(i + 1) * 10;
+            return (
+              <motion.div
+                key={i}
+                className="absolute w-48 h-64 bg-white/10 border border-white/20 rounded-xl shadow-lg"
+                initial={{ opacity: 0, scale: 0.95, y: -50, rotate: 0 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  y: verticalOffset,
+                  rotate: rotateDeg,
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 20, delay: (i + 1) * 0.07 }}
+              />
+            );
+          })}
         </motion.div>
       </div>
     </motion.div>

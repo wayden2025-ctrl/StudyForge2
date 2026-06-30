@@ -64,7 +64,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="landing-wrapper" style={{ background: '#050505', color: '#fff', fontFamily: "'Inter', sans-serif", overflowX: 'hidden', minHeight: '100vh', lineHeight: 1.6 }}>
+    <div className="landing-wrapper font-sans" style={{ background: '#050505', color: '#fff', overflowX: 'clip', minHeight: '100vh', lineHeight: 1.6 }}>
       <div id="cg"></div>
 
       {/* NAV */}
@@ -76,9 +76,20 @@ export default function LandingPage() {
             </div>
             StudyForge AI
           </div>
-          <div className="flex items-center gap-6">
-            <Link href="/login" className="text-sm font-medium text-white/70 hover:text-white transition-colors">Sign In</Link>
-            <Link href="/app" className="ncta">Start Free &rarr;</Link>
+          <div className="flex items-center gap-5">
+            <Link 
+              href="/login" 
+              className="nav-signin-btn"
+            >
+              Sign In
+            </Link>
+            <Link 
+              href="/signup" 
+              className="nav-cta-btn"
+            >
+              <span>Start Free</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </Link>
           </div>
         </div>
       </nav>

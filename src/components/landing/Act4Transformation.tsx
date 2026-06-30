@@ -38,13 +38,11 @@ export default function Act4Transformation({ progress }: { progress: MotionValue
         
         <motion.div
           style={{ y: pdfY, opacity: pdfOpacity }}
-          className="absolute w-64 h-80 bg-white border border-white/20 rounded-xl shadow-2xl p-6 flex flex-col"
+          className="absolute w-64 h-80 bg-black/80 border border-white/20 rounded-xl shadow-[0_0_50px_rgba(255,255,255,0.05)] p-6 flex flex-col justify-center items-center text-center backdrop-blur-xl"
         >
-          <div className="w-1/2 h-4 bg-neutral-200 rounded-full mb-6" />
-          <div className="w-full h-2 bg-neutral-100 rounded-full mb-3" />
-          <div className="w-full h-2 bg-neutral-100 rounded-full mb-3" />
-          <div className="w-3/4 h-2 bg-neutral-100 rounded-full mb-6" />
-          <div className="w-full h-32 bg-neutral-50 rounded-lg mt-auto" />
+          <div className="text-white font-bold text-xl mb-4 border-b border-white/10 pb-3 w-full">Cellular Biology</div>
+          <div className="text-neutral-300 text-sm mb-4 leading-relaxed font-medium">Cells are the basic structural and functional units of all living organisms.</div>
+          <div className="text-neutral-300 text-sm leading-relaxed font-medium">The mitochondria generates most of the cell's supply of ATP, used as chemical energy.</div>
 
           <motion.div
             style={{ top: scanY, opacity: scanOpacity }}
@@ -63,16 +61,18 @@ export default function Act4Transformation({ progress }: { progress: MotionValue
         >
           <div className="w-48 h-64 bg-black/80 border border-brand-purple/50 rounded-2xl p-4 shadow-[0_0_40px_rgba(168,85,247,0.2)] backdrop-blur-xl flex flex-col justify-center items-center text-center">
             <span className="text-brand-purple text-xs font-bold tracking-widest uppercase mb-2">Flashcard</span>
-            <div className="w-full h-1 bg-white/10 rounded-full mb-4" />
-            <span className="text-white text-lg font-medium">Spaced Repetition</span>
+            <div className="w-full h-[1px] bg-white/10 mb-4" />
+            <span className="text-white text-lg font-medium leading-snug">What is the powerhouse of the cell?</span>
+            <div className="mt-4 px-3 py-1 rounded-full bg-brand-purple/20 text-brand-purple text-xs font-medium">Mitochondria</div>
           </div>
           
           <div className="w-48 h-64 bg-black/80 border border-brand-cyan/50 rounded-2xl p-4 shadow-[0_0_40px_rgba(6,182,212,0.2)] backdrop-blur-xl flex flex-col">
             <span className="text-brand-cyan text-xs font-bold tracking-widest uppercase mb-4 text-center">Quiz</span>
-            <div className="space-y-3 mt-auto">
-              <div className="w-full h-8 border border-white/20 rounded-lg bg-white/5" />
-              <div className="w-full h-8 border border-brand-cyan rounded-lg bg-brand-cyan/20" />
-              <div className="w-full h-8 border border-white/20 rounded-lg bg-white/5" />
+            <span className="text-white text-sm font-medium mb-3">Which organelle produces ATP?</span>
+            <div className="space-y-2 mt-auto">
+              <div className="w-full text-xs text-white/50 p-2 border border-white/20 rounded-lg bg-white/5">Nucleus</div>
+              <div className="w-full text-xs text-white p-2 border border-brand-cyan rounded-lg bg-brand-cyan/20 flex justify-between">Mitochondria <span className="text-brand-cyan">✓</span></div>
+              <div className="w-full text-xs text-white/50 p-2 border border-white/20 rounded-lg bg-white/5">Ribosome</div>
             </div>
           </div>
         </motion.div>

@@ -1,10 +1,10 @@
-import { login, guestLogin } from "./actions";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { signup } from "./actions";
+import { Sparkles, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 
-export default async function LoginPage({
+export default async function SignupPage({
   searchParams,
 }: {
   searchParams: Promise<{ error?: string; message?: string }>;
@@ -21,8 +21,8 @@ export default async function LoginPage({
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#050505] p-4 relative overflow-hidden">
       {/* Background Orbs */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-blue/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-purple/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-purple/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-cyan/10 blur-[120px] pointer-events-none" />
 
       <div className="w-full max-w-md relative z-10">
         <Link href="/" className="flex items-center justify-center space-x-2 mb-8">
@@ -31,10 +31,24 @@ export default async function LoginPage({
         </Link>
 
         <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-xl shadow-2xl">
-          <h2 className="text-2xl font-semibold text-white mb-2 text-center">Welcome Back</h2>
-          <p className="text-neutral-400 text-center mb-8 text-sm">Sign in to access your study materials</p>
+          <h2 className="text-2xl font-semibold text-white mb-2 text-center">Create Your Account</h2>
+          <p className="text-neutral-400 text-center mb-8 text-sm">Join StudyForge and start learning smarter</p>
 
           <form className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-neutral-300 mb-1.5" htmlFor="name">
+                Full Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple transition-all"
+                placeholder="John Doe"
+              />
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-neutral-300 mb-1.5" htmlFor="email">
                 Email Address
@@ -58,9 +72,11 @@ export default async function LoginPage({
                 name="password"
                 type="password"
                 required
+                minLength={6}
                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple transition-all"
                 placeholder="••••••••"
               />
+              <p className="text-neutral-500 text-xs mt-1.5">Must be at least 6 characters</p>
             </div>
 
             {params?.error && (
@@ -77,33 +93,18 @@ export default async function LoginPage({
 
             <div className="pt-2 flex flex-col gap-3">
               <button
-                formAction={login}
-                className="w-full bg-white text-black font-semibold rounded-xl py-3 flex items-center justify-center gap-2 hover:bg-neutral-200 transition-colors"
+                formAction={signup}
+                className="w-full bg-gradient-to-r from-brand-purple to-brand-blue text-white font-semibold rounded-xl py-3 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
               >
-                Sign In <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <div className="relative flex items-center py-2">
-                <div className="flex-grow border-t border-white/10"></div>
-                <span className="flex-shrink-0 mx-4 text-neutral-500 text-xs uppercase tracking-widest">Or</span>
-                <div className="flex-grow border-t border-white/10"></div>
-              </div>
-
-              <button
-                formAction={guestLogin}
-                formNoValidate
-                className="w-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple font-medium rounded-xl py-3 hover:bg-brand-purple/20 transition-colors flex flex-col items-center justify-center gap-0.5"
-              >
-                <span>Continue as Guest</span>
-                <span className="text-[10px] opacity-70">Start instantly &bull; 5 Free Generations</span>
+                Create Account <UserPlus className="w-4 h-4" />
               </button>
             </div>
           </form>
 
           <p className="text-neutral-500 text-sm text-center mt-6">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-brand-purple hover:text-brand-purple/80 font-medium transition-colors">
-              Create one
+            Already have an account?{" "}
+            <Link href="/login" className="text-brand-purple hover:text-brand-purple/80 font-medium transition-colors">
+              Sign in
             </Link>
           </p>
         </div>

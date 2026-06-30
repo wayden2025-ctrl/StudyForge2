@@ -26,7 +26,7 @@ export default function Act12CTA({ progress }: { progress: MotionValue<number> }
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <Link 
             href="/app"
-            className="group relative px-8 py-4 bg-white text-black text-lg font-bold rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-transform hover:scale-105"
+            className="group relative px-8 py-4 bg-white text-black text-lg font-bold rounded-full overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-transform hover:scale-105"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan to-brand-purple opacity-0 group-hover:opacity-20 transition-opacity" />
             Start for free &rarr;
@@ -34,7 +34,7 @@ export default function Act12CTA({ progress }: { progress: MotionValue<number> }
           
           <Link 
             href="/login"
-            className="px-8 py-4 bg-white/5 text-white text-lg font-semibold rounded-2xl border border-white/10 hover:bg-white/10 transition-colors"
+            className="px-8 py-4 bg-black/50 backdrop-blur-xl text-white text-lg font-semibold rounded-full border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all shadow-[0_0_20px_rgba(255,255,255,0.05)]"
           >
             Sign In
           </Link>

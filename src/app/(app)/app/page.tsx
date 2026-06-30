@@ -24,7 +24,7 @@ export default function AppHubPage() {
     supabase.auth.getUser().then(({ data }) => setIsLoggedIn(!!data.user));
   }, []);
 
-  const isAnonBlocked = isLoggedIn === false && anonCount >= 3;
+  const isAnonBlocked = isLoggedIn === false && anonCount >= 5;
 
   const handleGenerate = async () => {
     if (!text.trim()) return;
@@ -186,8 +186,8 @@ export default function AppHubPage() {
           <div className="flex flex-col items-end gap-3">
             {isAnonBlocked && (
               <p className="text-red-400 text-sm bg-red-500/10 px-4 py-2 rounded-lg border border-red-500/20">
-                You have used your 3 free anonymous generations. 
-                <a href="/login" className="font-bold underline ml-1 hover:text-white transition-colors">Create a free account to continue!</a>
+                You have used your 5 free anonymous generations. 
+                <a href="/signup" className="font-bold underline ml-1 hover:text-white transition-colors">Create a free account to continue!</a>
               </p>
             )}
             <Button

@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">
+      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-clip">
         {/* Ambient background glows */}
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-blue/20 blur-[120px]" />

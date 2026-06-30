@@ -15,48 +15,49 @@ export async function POST(req: Request) {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (user) {
-      // Check user generation count
-      const genCount = user.user_metadata?.generation_count || 0;
-      
-      if (genCount >= 10) {
+      const now = new Date();
+      let genCount = user.user_metadata?.generation_count || 0;
+      let lastResetStr = user.user_metadata?.generation_last_reset;
+      let lastReset = lastResetStr ? new Date(lastResetStr) : new Date(0);
+
+      // Check if a week (7 days) has passed since last reset
+      const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+      if (now.getTime() - lastReset.getTime() >= msPerWeek) {
+        genCount = 0; // reset
+        lastResetStr = now.toISOString();
+      }
+
+      // Free plan limit
+      if (genCount >= 5) {
         return NextResponse.json(
-          { error: "You have reached the maximum limit of 10 free generations for your account." },
+          { error: "You have reached your limit of 5 free generations this week. Upgrade to Pro for more!" },
           { status: 403 }
         );
       }
 
-      // Update generation count
+      // Update generation count and reset date
       await supabase.auth.updateUser({
-        data: { generation_count: genCount + 1 }
+        data: { 
+          generation_count: genCount + 1,
+          generation_last_reset: lastResetStr || now.toISOString()
+        }
       });
     }
     // Anonymous usage (up to 3) is tracked strictly on the client side in localStorage via Zustand.
     // ----------------------------
 
     if (!process.env.GROQ_API_KEY && !process.env.OPENAI_API_KEY) {
-      // Fallback mock data if keys are missing
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      return NextResponse.json({
-        summary: "This is a generated summary of your notes. It highlights the main ideas and simplifies complex topics.",
-        flashcards: [
-          { question: "What is the capital of France?", answer: "Paris" },
-          { question: "What does HTML stand for?", answer: "HyperText Markup Language" },
-        ],
-        quiz: [
-          {
-            question: "Which of the following is a primary color?",
-            options: ["Green", "Purple", "Red", "Orange"],
-            correct: "Red"
-          }
-        ],
-        key_concepts: [
-          { title: "Concept 1: Definition", description: "This is a detailed explanation of the first concept based on your notes." },
-          { title: "Concept 2: Application", description: "This explains how to apply the second concept." }
-        ],
-        mnemonics: ["ROYGBIV for rainbow colors"]
-      });
-    }
-
+  // No API key configured – cannot generate real study materials.
+  // Return empty results and a helpful message.
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  return NextResponse.json({
+    summary: "API keys are missing. Unable to generate study materials.",
+    flashcards: [],
+    quiz: [],
+    key_concepts: [],
+    mnemonics: []
+  });
+}
     const isGroq = !!process.env.GROQ_API_KEY;
     const client = new OpenAI({
       apiKey: process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY,
@@ -100,11 +101,12 @@ export async function POST(req: Request) {
       throw new Error("Failed to generate content");
     }
 
-    const parsedData = JSON.parse(content);
+    const parsedData = JSON.parse(content as string);
     return NextResponse.json(parsedData);
 
-  } catch (error: any) {
-    console.error("API Error:", error);
-    return NextResponse.json({ error: error.message || "Failed to generate study materials" }, { status: 500 });
+  } catch (error) {
+    const err = error as { message?: string };
+    console.error("API Error:", err);
+    return NextResponse.json({ error: err.message || "Failed to generate study materials" }, { status: 500 });
   }
 }

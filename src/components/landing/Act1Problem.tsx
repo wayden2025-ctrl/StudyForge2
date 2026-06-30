@@ -5,11 +5,12 @@ import { motion, MotionValue, useTransform } from "framer-motion";
 export default function Act1Problem({ progress }: { progress: MotionValue<number> }) {
   const opacity = useTransform(progress, [0, 0.06, 0.09], [1, 1, 0]);
   const z = useTransform(progress, [0, 0.09], [0, -400]);
+  const display = useTransform(progress, p => p > 0.1 ? "none" : "flex");
 
   return (
     <motion.div 
-      style={{ opacity, translateZ: z }} 
-      className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10"
+      style={{ opacity, translateZ: z, display }} 
+      className="absolute inset-0 flex-col items-center justify-center pointer-events-none z-10"
     >
       <div className="relative z-10 text-center">
         <h1 className="text-[clamp(3rem,8vw,7rem)] font-extrabold tracking-tighter text-white leading-none mb-6">

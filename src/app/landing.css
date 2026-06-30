@@ -11,14 +11,86 @@
 #cg{position:fixed;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.10) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);mix-blend-mode:screen}
 
 /* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);background:rgba(5,5,5,0.55);border-bottom:1px solid rgba(255,255,255,0.04);transition:all .3s}
-nav.sc{background:rgba(5,5,5,0.88);box-shadow:0 4px 40px rgba(0,0,0,0.6)}
+.landing-wrapper nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(20px);background:rgba(5,5,5,0.55);border-bottom:1px solid rgba(255,255,255,0.04);transition:all .3s}
+.landing-wrapper nav.sc{background:rgba(5,5,5,0.88);box-shadow:0 4px 40px rgba(0,0,0,0.6)}
 .nav-inner{width:100%;max-width:1040px;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;transition:padding .3s}
-nav.sc .nav-inner{padding:13px 24px}
+.landing-wrapper nav.sc .nav-inner{padding:13px 24px}
 .nlogo{display:flex;align-items:center;gap:9px;font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:-.02em}
 .nicon{width:30px;height:30px;background:linear-gradient(135deg,var(--p),var(--b));border-radius:7px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px var(--pg)}
 .ncta{padding:8px 20px;background:#fff;color:#000;border:none;border-radius:50px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;box-shadow:0 0 18px rgba(255,255,255,0.12)}
 .ncta:hover{background:#e8e8e8;transform:translateY(-1px)}
+
+/* Nav buttons — Apple-like */
+.nav-signin-btn {
+  padding: 10px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: -0.01em;
+}
+.nav-signin-btn:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.nav-signin-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.nav-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff 0%, #e8e8e8 100%);
+  border: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 4px 24px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.12);
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+}
+.nav-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(168,85,247,0.15) 0%, rgba(59,130,246,0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+.nav-cta-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.5), 0 0 60px rgba(255,255,255,0.18);
+  background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+}
+.nav-cta-btn:hover::before {
+  opacity: 1;
+}
+.nav-cta-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+.nav-cta-btn svg {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.nav-cta-btn:hover svg {
+  transform: translateX(3px);
+}
 
 /* hero */
 .hero{position:relative;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;overflow:hidden}
@@ -73,7 +145,7 @@ h1.hh1{font-family:'Syne',sans-serif;font-size:clamp(3rem,7.5vw,6.2rem);font-wei
 @keyframes sp{0%,100%{opacity:.35;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.08)}}
 
 /* sections */
-section{position:relative;padding:96px 24px;z-index:10}
+.landing-wrapper section{position:relative;padding:96px 24px;z-index:10}
 .si{max-width:1040px;margin:0 auto}
 .slabel{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--p);margin-bottom:14px;display:flex;align-items:center;gap:9px}
 .slabel::before{content:'';width:20px;height:1px;background:var(--p)}
@@ -178,7 +250,7 @@ section{position:relative;padding:96px 24px;z-index:10}
 .ctacard .bprimary{position:relative;z-index:1;margin:0 auto;display:inline-flex}
 
 /* footer */
-footer{background:rgba(0,0,0,.78);border-top:1px solid rgba(255,255,255,.05);backdrop-filter:blur(18px);padding:56px 24px 28px}
+.landing-wrapper footer{background:rgba(0,0,0,.78);border-top:1px solid rgba(255,255,255,.05);backdrop-filter:blur(18px);padding:56px 24px 28px}
 .fgridf{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;margin-bottom:44px}
 @media(max-width:700px){.fgridf{grid-template-columns:1fr;gap:28px}}
 .fbrand p{color:rgba(255,255,255,.32);font-size:.9rem;margin-top:14px;max-width:280px;line-height:1.65}

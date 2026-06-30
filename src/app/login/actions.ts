@@ -3,39 +3,26 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
 
 export async function login(formData: FormData) {
   const supabase = await createClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  const email = formData.get('email') as string
+  const password = formData.get('password') as string
+
+  if (!email || !password) {
+    redirect('/login?error=Please fill in all fields')
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
-    redirect('/login?error=Could not authenticate user')
-  }
-
-  revalidatePath('/', 'layout')
-  redirect('/app')
-}
-
-export async function signup(formData: FormData) {
-  const supabase = await createClient()
-
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  }
-
-  const { error } = await supabase.auth.signUp(data)
-
-  if (error) {
-    redirect('/login?error=Could not create user')
+    // If credentials are invalid, suggest creating an account
+    if (error.message.includes('Invalid login credentials')) {
+      redirect('/login?error=Invalid email or password. Don\'t have an account? Click "Create one" below.')
+    }
+    redirect(`/login?error=${encodeURIComponent(error.message)}`)
   }
 
   revalidatePath('/', 'layout')
@@ -48,4 +35,12 @@ export async function logout() {
   
   revalidatePath('/', 'layout')
   redirect('/')
+}
+
+export async function guestLogin() {
+  const cookieStore = await cookies()
+  cookieStore.set('guest_mode', 'true', { maxAge: 60 * 60 * 24 * 30 }) // 30 days
+  
+  revalidatePath('/', 'layout')
+  redirect('/app')
 }

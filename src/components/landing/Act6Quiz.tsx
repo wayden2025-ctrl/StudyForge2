@@ -27,15 +27,15 @@ export default function Act6Quiz({ progress }: { progress: MotionValue<number> }
         </div>
 
         <div className="text-xl md:text-2xl text-white font-medium mb-10 leading-snug">
-          Which machine learning technique is best suited for predicting continuous numerical values?
+          Which organelle is primarily responsible for the synthesis of ATP through cellular respiration?
         </div>
 
         <div className="space-y-4">
           {[
-            { text: "Logistic Regression", correct: false, range: [0.41, 0.42] },
-            { text: "K-Means Clustering", correct: false, range: [0.415, 0.425] },
-            { text: "Linear Regression", correct: true, range: [0.42, 0.43] },
-            { text: "Decision Tree Classification", correct: false, range: [0.425, 0.435] },
+            { text: "Endoplasmic Reticulum", correct: false, range: [0.41, 0.42] },
+            { text: "Golgi Apparatus", correct: false, range: [0.415, 0.425] },
+            { text: "Mitochondria", correct: true, range: [0.42, 0.43] },
+            { text: "Chloroplast", correct: false, range: [0.425, 0.435] },
           ].map((opt, i) => {
             const optOpacity = useTransform(progress, opt.range, [0, 1]);
             const optX = useTransform(progress, opt.range, [30, 0]);

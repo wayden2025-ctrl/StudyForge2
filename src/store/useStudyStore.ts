@@ -48,7 +48,7 @@ export const useStudyStore = create<StudyStore>()(
     }),
     {
       name: 'studyforge-storage',
-      partialize: (state) => ({ anonCount: state.anonCount }), // Only persist anonCount
+      partialize: (state) => ({ anonCount: state.anonCount, data: state.data }),
     }
   )
 );

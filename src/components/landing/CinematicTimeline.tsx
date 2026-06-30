@@ -1,10 +1,11 @@
 "use client";
 
-import { useScroll } from "framer-motion";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 import Act1Problem from "./Act1Problem";
 import Act2Shift from "./Act2Shift";
-import Act3Reveal from "./Act3Reveal";
+
 import Act4Transformation from "./Act4Transformation";
 import Act5Flashcards from "./Act5Flashcards";
 import Act6Quiz from "./Act6Quiz";
@@ -16,13 +17,21 @@ import Act12CTA from "./Act12CTA";
 
 export default function CinematicTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest >= 0.999) {
+      router.push('/login');
+    }
+  });
+
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: "1500vh", background: "#050505" }}>
+    <div ref={containerRef} className="relative w-full" style={{ height: "1300vh", background: "#050505" }}>
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden" style={{ perspective: "1200px" }}>
         
         {/* Global Ambient Background */}
@@ -35,7 +44,7 @@ export default function CinematicTimeline() {
         {/* Cinematic Acts Overlay */}
         <Act1Problem progress={scrollYProgress} />
         <Act2Shift progress={scrollYProgress} />
-        <Act3Reveal progress={scrollYProgress} />
+
         <Act4Transformation progress={scrollYProgress} />
         <Act5Flashcards progress={scrollYProgress} />
         <Act6Quiz progress={scrollYProgress} />
@@ -47,6 +56,21 @@ export default function CinematicTimeline() {
         
         <Act12CTA progress={scrollYProgress} />
 
+      </div>
+
+      {/* Invisible Snap Targets */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        {[0, 0.08, 0.24, 0.35, 0.42, 0.54, 0.67, 0.80, 0.90, 1].map((snap, i) => (
+          <div 
+            key={i} 
+            style={{ 
+              position: 'absolute', 
+              top: `${snap * 100}%`, 
+              height: '100px', 
+              scrollSnapAlign: 'start' 
+            }} 
+          />
+        ))}
       </div>
     </div>
   );

@@ -47,10 +47,12 @@ export default function Act5Flashcards({ progress }: { progress: MotionValue<num
             >
               <span className="text-brand-purple text-xs font-bold tracking-widest uppercase mb-auto">Question</span>
               
-              <div className="w-full text-center space-y-3">
-                <div className="w-full h-3 bg-white/20 rounded-full" />
-                <div className="w-5/6 h-3 bg-white/20 rounded-full mx-auto" />
-                <div className="w-2/3 h-3 bg-white/20 rounded-full mx-auto" />
+              <div className="w-full text-center my-4 overflow-hidden">
+                {i === 0 && <span className="text-white text-xl font-medium">When was the Magna Carta signed?</span>}
+                {i === 1 && <span className="text-white text-xl font-medium">What is the derivative of e^x?</span>}
+                {i === 2 && <span className="text-white text-xl font-medium">Which organelle is the powerhouse of the cell?</span>}
+                {i === 3 && <span className="text-white text-xl font-medium">What is Newton's second law of motion?</span>}
+                {i === 4 && <span className="text-white text-xl font-medium">Who painted the Mona Lisa?</span>}
               </div>
 
               <div className="mt-auto pt-6 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center border-t border-white/10">
