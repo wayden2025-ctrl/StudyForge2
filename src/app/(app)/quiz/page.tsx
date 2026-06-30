@@ -3,7 +3,7 @@
 import { PageWrapper } from "@/components/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useStudyStore } from "@/store/useStudyStore";
+import { useStudyStore, QuizQuestion } from "@/store/useStudyStore";
 import { BrainCircuit, CheckCircle, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -14,6 +14,7 @@ export default function QuizPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);
+  const [wrongQuestions, setWrongQuestions] = useState<QuizQuestion[]>([]);
   const [isFinished, setIsFinished] = useState(false);
 
   if (!data || data.quiz.length === 0) {
@@ -39,6 +40,8 @@ export default function QuizPage() {
     setSelectedOption(option);
     if (option === currentQuestion.correct) {
       setScore((s) => s + 1);
+    } else {
+      setWrongQuestions((prev) => [...prev, currentQuestion]);
     }
   };
 
@@ -55,6 +58,7 @@ export default function QuizPage() {
     setCurrentIndex(0);
     setSelectedOption(null);
     setScore(0);
+    setWrongQuestions([]);
     setIsFinished(false);
   };
 
@@ -68,7 +72,23 @@ export default function QuizPage() {
           <h2 className="text-3xl font-bold mb-2">Quiz Complete!</h2>
           <p className="text-xl text-neutral-400">You scored {score} out of {quiz.length}</p>
         </div>
-        <div className="flex space-x-4">
+
+        {wrongQuestions.length > 0 && (
+          <div className="w-full max-w-2xl text-left space-y-4 mt-8 mb-4">
+            <h3 className="text-xl font-bold text-white mb-4 border-b border-white/10 pb-2">Things to Review</h3>
+            {wrongQuestions.map((q, i) => (
+              <div key={i} className="bg-white/5 border border-red-500/30 rounded-xl p-5 space-y-3">
+                <p className="font-medium text-white">{q.question}</p>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
+                  <p className="text-green-400 text-sm"><span className="font-bold">Correct Answer:</span> {q.correct}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="flex space-x-4 pt-4">
           <Button onClick={handleRestart}>Retake Quiz</Button>
           <Link href="/study">
             <Button variant="outline">Review Notes</Button>
