@@ -29,11 +29,12 @@ export default function Act2Shift({ progress }: { progress: MotionValue<number> 
           const xMove = useTransform(progress, [0.06, 0.14], [i % 2 === 0 ? -500 : 500, 0]);
           const yMove = useTransform(progress, [0.06, 0.14], [i < 2 ? -400 : 400, 0]);
           const rotate = useTransform(progress, [0.06, 0.14], [i * 45, 0]);
+          const cardOpacity = useTransform(progress, [0.139, 0.14], [1, 0]); // Fade out instantly as they merge
           
           return (
             <motion.div
               key={i}
-              style={{ x: xMove, y: yMove, rotateZ: rotate }}
+              style={{ x: xMove, y: yMove, rotateZ: rotate, opacity: cardOpacity }}
               className="absolute top-1/2 left-1/2 -ml-24 -mt-32 w-48 h-64 bg-white/10 border border-white/20 rounded-xl backdrop-blur-xl shadow-[0_0_50px_rgba(255,255,255,0.1)] flex flex-col p-4"
             >
               <div className="w-full h-full border border-dashed border-white/20 rounded-lg flex items-center justify-center">

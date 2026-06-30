@@ -38,11 +38,8 @@ export default function Act4Transformation({ progress }: { progress: MotionValue
         
         <motion.div
           style={{ y: pdfY, opacity: pdfOpacity }}
-          className="absolute w-64 h-80 bg-black/80 border border-white/20 rounded-xl shadow-[0_0_50px_rgba(255,255,255,0.05)] p-6 flex flex-col justify-center items-center text-center backdrop-blur-xl"
+          className="absolute w-64 h-80 flex flex-col justify-center items-center text-center z-50"
         >
-          <div className="text-white font-bold text-xl mb-4 border-b border-white/10 pb-3 w-full">Cellular Biology</div>
-          <div className="text-neutral-300 text-sm mb-4 leading-relaxed font-medium">Cells are the basic structural and functional units of all living organisms.</div>
-          <div className="text-neutral-300 text-sm leading-relaxed font-medium">The mitochondria generates most of the cell's supply of ATP, used as chemical energy.</div>
 
           <motion.div
             style={{ top: scanY, opacity: scanOpacity }}

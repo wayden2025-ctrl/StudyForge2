@@ -9,8 +9,14 @@ export default async function AccountPage() {
 
   const isAnonymous = !user;
   const userMetadata = user?.user_metadata || {};
-  const generationsUsed = userMetadata.generations_used || 0;
-  const MAX_AUTH_GENS = 10;
+  const tier = userMetadata.subscription_tier || "free";
+  
+  let studyMax = 5; let planMax = 5;
+  if (tier === "pro") { studyMax = 50; planMax = 50; }
+  if (tier === "max") { studyMax = Infinity; planMax = Infinity; }
+
+  const studyGens = userMetadata.generation_count || 0;
+  const planGens = userMetadata.plan_generation_count || 0;
 
   return (
     <div className="max-w-4xl mx-auto py-8 space-y-8">
@@ -49,8 +55,8 @@ export default async function AccountPage() {
             <div>
               <label className="text-sm font-medium text-neutral-400">Current Plan</label>
               <div className="mt-1 flex items-center">
-                <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-cyan">
-                  Free Tier
+                <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-cyan uppercase tracking-wider">
+                  {tier} Tier
                 </span>
               </div>
             </div>
@@ -84,17 +90,35 @@ export default async function AccountPage() {
             {isAnonymous ? (
               <AccountUsageClient />
             ) : (
-              <div className="text-center">
-                <div className="text-4xl font-extrabold text-white mb-2">
-                  {generationsUsed} <span className="text-lg text-neutral-500 font-medium">/ {MAX_AUTH_GENS}</span>
+              <div className="space-y-8">
+                {/* Study Generations */}
+                <div>
+                  <div className="flex justify-between text-sm text-neutral-300 mb-2">
+                    <span className="font-semibold">Study Generations</span>
+                    <span className="font-bold">{studyGens} <span className="text-neutral-500 font-medium">/ {studyMax === Infinity ? '∞' : studyMax}</span></span>
+                  </div>
+                  <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-brand-purple to-purple-400 rounded-full transition-all duration-500" 
+                      style={{ width: `${Math.min(100, (studyGens / studyMax) * 100)}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-neutral-500 mt-2">Resets every Monday</p>
                 </div>
-                <p className="text-sm text-neutral-400">Generations used this month.</p>
-                
-                <div className="w-full h-2 bg-white/5 rounded-full mt-6 overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-brand-blue to-brand-purple rounded-full" 
-                    style={{ width: `${(generationsUsed / MAX_AUTH_GENS) * 100}%` }}
-                  />
+
+                {/* Plan Generations */}
+                <div>
+                  <div className="flex justify-between text-sm text-neutral-300 mb-2">
+                    <span className="font-semibold">Plan Generations</span>
+                    <span className="font-bold">{planGens} <span className="text-neutral-500 font-medium">/ {planMax === Infinity ? '∞' : planMax}</span></span>
+                  </div>
+                  <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-brand-cyan to-blue-400 rounded-full transition-all duration-500" 
+                      style={{ width: `${Math.min(100, (planGens / planMax) * 100)}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-neutral-500 mt-2">Resets every Monday</p>
                 </div>
               </div>
             )}

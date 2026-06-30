@@ -20,17 +20,27 @@ export async function POST(req: Request) {
       let lastResetStr = user.user_metadata?.generation_last_reset;
       let lastReset = lastResetStr ? new Date(lastResetStr) : new Date(0);
 
-      // Check if a week (7 days) has passed since last reset
-      const msPerWeek = 7 * 24 * 60 * 60 * 1000;
-      if (now.getTime() - lastReset.getTime() >= msPerWeek) {
+      // Calculate current week's Monday at 00:00:00
+      const currentMonday = new Date(now);
+      const day = currentMonday.getDay();
+      const diff = currentMonday.getDate() - day + (day === 0 ? -6 : 1);
+      currentMonday.setDate(diff);
+      currentMonday.setHours(0, 0, 0, 0);
+
+      // Check if last reset was before this week's Monday
+      if (lastReset.getTime() < currentMonday.getTime()) {
         genCount = 0; // reset
         lastResetStr = now.toISOString();
       }
 
-      // Free plan limit
-      if (genCount >= 5) {
+      const tier = user.user_metadata?.subscription_tier || "free";
+      let limit = 5; // Free
+      if (tier === "pro") limit = 50;
+      if (tier === "max") limit = Infinity;
+
+      if (genCount >= limit) {
         return NextResponse.json(
-          { error: "You have reached your limit of 5 free generations this week. Upgrade to Pro for more!" },
+          { error: `You have reached your limit of ${limit} generations this week. Upgrade to Pro/MAX for more!` },
           { status: 403 }
         );
       }

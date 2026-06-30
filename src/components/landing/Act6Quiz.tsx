@@ -26,7 +26,7 @@ export default function Act6Quiz({ progress }: { progress: MotionValue<number> }
           </div>
         </div>
 
-        <div className="text-xl md:text-2xl text-white font-medium mb-10 leading-snug">
+        <div className="text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 font-extrabold mb-10 leading-snug tracking-tight text-center px-4">
           Which organelle is primarily responsible for the synthesis of ATP through cellular respiration?
         </div>
 
@@ -47,11 +47,11 @@ export default function Act6Quiz({ progress }: { progress: MotionValue<number> }
                   style={{ opacity: glowActive }}
                   className="absolute inset-0 bg-brand-cyan/20 border-brand-cyan rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.4)]"
                 />
-                <div className={`relative px-6 py-4 rounded-xl border flex items-center gap-4 transition-all ${opt.correct ? 'border-brand-cyan/50 bg-brand-cyan/10' : 'border-white/10 bg-white/5'}`}>
-                  <div className={`w-6 h-6 rounded-full border flex items-center justify-center ${opt.correct ? 'border-brand-cyan bg-brand-cyan' : 'border-white/20'}`}>
+                <div className={`relative px-6 py-4 rounded-xl border flex items-center justify-center gap-4 transition-all ${opt.correct ? 'border-brand-cyan/50 bg-brand-cyan/10' : 'border-white/10 bg-white/5'}`}>
+                  <div className={`absolute left-6 w-6 h-6 rounded-full border flex items-center justify-center ${opt.correct ? 'border-brand-cyan bg-brand-cyan' : 'border-white/20'}`}>
                     {opt.correct && <svg className="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>}
                   </div>
-                  <span className={`text-lg ${opt.correct ? 'text-white' : 'text-neutral-300'}`}>{opt.text}</span>
+                  <span className={`text-xl font-bold tracking-tight ${opt.correct ? 'text-white' : 'text-neutral-300'}`}>{opt.text}</span>
                 </div>
               </motion.div>
             );

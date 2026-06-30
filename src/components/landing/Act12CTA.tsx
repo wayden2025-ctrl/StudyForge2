@@ -23,24 +23,24 @@ export default function Act12CTA({ progress }: { progress: MotionValue<number> }
           Join thousands of students who have already flipped the ratio.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 scale-110 mt-6 mb-10">
           <Link 
-            href="/app"
-            className="group relative px-8 py-4 bg-white text-black text-lg font-bold rounded-full overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-transform hover:scale-105"
+            href="/signup" 
+            className="nav-cta-btn shadow-[0_0_40px_rgba(255,255,255,0.2)]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan to-brand-purple opacity-0 group-hover:opacity-20 transition-opacity" />
-            Start for free &rarr;
+            <span>Start Free</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </Link>
           
           <Link 
-            href="/login"
-            className="px-8 py-4 bg-black/50 backdrop-blur-xl text-white text-lg font-semibold rounded-full border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+            href="/login" 
+            className="nav-signin-btn"
           >
             Sign In
           </Link>
         </div>
 
-        <p className="mt-8 text-neutral-500 text-sm">
+        <p className="mt-12 text-neutral-400 font-medium text-lg tracking-wide">
           No credit card required. Cancel anytime.
         </p>
       </div>
