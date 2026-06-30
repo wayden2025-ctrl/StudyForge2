@@ -12,8 +12,7 @@ export default async function AccountPage() {
   const tier = userMetadata.subscription_tier || "free";
   
   let studyMax = 5; let planMax = 5;
-  if (tier === "pro") { studyMax = 50; planMax = 50; }
-  if (tier === "max") { studyMax = Infinity; planMax = Infinity; }
+  if (tier === "pro" || tier === "max") { studyMax = Infinity; planMax = Infinity; }
 
   const studyGens = userMetadata.generation_count || 0;
   const planGens = userMetadata.plan_generation_count || 0;

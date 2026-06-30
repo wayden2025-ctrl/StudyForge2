@@ -3,15 +3,78 @@
 import { PageWrapper } from "@/components/PageWrapper";
 import { Card } from "@/components/ui/card";
 import { useStudyStore } from "@/store/useStudyStore";
-import { BookOpen, Sparkles, BrainCircuit, ChevronDown } from "lucide-react";
+import { BookOpen, Sparkles, BrainCircuit, ChevronDown, Save, Loader2, Download, Copy } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { createClient } from "@/utils/supabase/client";
 
 export default function StudyPage() {
   const { data } = useStudyStore();
   const [expandedConcept, setExpandedConcept] = useState<number | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [tier, setTier] = useState("free");
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      setTier(data.user?.user_metadata?.subscription_tier || "free");
+    });
+  }, []);
+
+  const isPro = tier === "pro" || tier === "max";
+
+  const handleExportPDF = () => {
+    if (!isPro) {
+      alert("🔒 Pro Feature: Upgrade your plan to export beautifully formatted PDFs!");
+      return;
+    }
+    window.print();
+  };
+
+  const handleCopyNotion = () => {
+    if (!isPro) {
+      alert("🔒 Pro Feature: Upgrade your plan to export to Notion!");
+      return;
+    }
+    if (!data) return;
+    const markdown = `# ${data.summary}\n\n## Key Concepts\n${data.key_concepts.map(c => `- **${c.title}**: ${c.description}`).join('\n')}\n\n## Detailed Notes\n${data.detailed_notes}\n\n## Mnemonics\n${data.mnemonics.map(m => `- ${m}`).join('\n')}`;
+    navigator.clipboard.writeText(markdown);
+    alert("Copied to clipboard! Paste directly into Notion.");
+  };
+
+  const handleSaveNote = async () => {
+    if (!data) return;
+    const title = prompt("Enter a title for this study set:", "My Study Notes");
+    if (!title) return;
+
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/save-note", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          summary: data.summary,
+          key_concepts: data.key_concepts,
+          detailed_notes: data.detailed_notes,
+          mnemonics: data.mnemonics
+        })
+      });
+      
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Failed to save note");
+      
+      alert("Successfully saved to your Library!");
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   if (!data) {
     return (
@@ -36,16 +99,42 @@ export default function StudyPage() {
             <h1 className="text-3xl font-bold mb-2">Study Notes</h1>
             <p className="text-neutral-400">Your AI-generated summary and key concepts.</p>
           </div>
-          <div className="hidden sm:flex space-x-3">
+          <div className="hidden sm:flex space-x-3 items-center">
+            {/* Export Buttons */}
+            <div className="flex bg-white/5 rounded-xl p-1.5 border border-white/10 relative shadow-lg">
+              {!isPro && (
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1.5px] rounded-xl z-10 flex items-center justify-center cursor-not-allowed group" title="Pro Feature">
+                   <div className="absolute -top-10 opacity-0 group-hover:opacity-100 bg-brand-purple text-white text-xs font-bold py-1.5 px-3 rounded-md transition-opacity whitespace-nowrap pointer-events-none shadow-xl">Upgrade to unlock Export</div>
+                </div>
+              )}
+              <Button variant="ghost" className="text-neutral-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-2 h-auto font-medium transition-colors">
+                <Download className="w-4 h-4 mr-2" /> PDF
+              </Button>
+              <Button variant="ghost" className="text-neutral-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-2 h-auto font-medium transition-colors">
+                <Copy className="w-4 h-4 mr-2" /> Notion
+              </Button>
+            </div>
+            
+            <div className="w-px h-8 bg-white/10 mx-2"></div>
+
+            <Button 
+              variant="outline" 
+              onClick={handleSaveNote}
+              disabled={isSaving}
+              className="rounded-xl px-4 py-2 h-auto border-brand-purple/50 hover:bg-brand-purple hover:text-white text-brand-purple font-bold transition-all shadow-[0_0_15px_rgba(168,85,247,0.2)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)]"
+            >
+              {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+              Save to Library
+            </Button>
             <Link href="/flashcards">
-              <Button variant="outline" size="sm">
-                <BookOpen className="w-4 h-4 mr-2 text-brand-blue" />
+              <Button variant="outline" className="rounded-xl px-4 py-2 h-auto border-brand-blue/30 hover:bg-brand-blue hover:text-white text-brand-blue font-bold transition-all hover:border-brand-blue">
+                <BookOpen className="w-4 h-4 mr-2" />
                 Practice Flashcards
               </Button>
             </Link>
             <Link href="/quiz">
-              <Button variant="outline" size="sm">
-                <BrainCircuit className="w-4 h-4 mr-2 text-brand-purple" />
+              <Button variant="outline" className="rounded-xl px-4 py-2 h-auto border-brand-purple/30 hover:bg-brand-purple hover:text-white text-brand-purple font-bold transition-all hover:border-brand-purple">
+                <BrainCircuit className="w-4 h-4 mr-2" />
                 Take Quiz
               </Button>
             </Link>
@@ -121,6 +210,20 @@ export default function StudyPage() {
             </ul>
           </Card>
         </div>
+
+        {data.detailed_notes && (
+          <Card className="space-y-6 mt-8 bg-neutral-900/50 border-white/10">
+            <div className="flex items-center space-x-3 text-brand-purple mb-6">
+              <BookOpen className="w-6 h-6" />
+              <h2 className="text-xl font-semibold text-white">Detailed Study Notes</h2>
+            </div>
+            <div className="prose prose-invert prose-brand max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {data.detailed_notes}
+              </ReactMarkdown>
+            </div>
+          </Card>
+        )}
       </div>
     </PageWrapper>
   );

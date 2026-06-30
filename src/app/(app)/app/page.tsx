@@ -9,12 +9,14 @@ import { FileText, Sparkles, Upload, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AppHubPage() {
   const [text, setText] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [isParsing, setIsParsing] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [showLimitModal, setShowLimitModal] = useState(false);
   const { isLoading, setIsLoading, setData, anonCount, incrementAnonCount } = useStudyStore();
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -45,7 +47,11 @@ export default function AppHubPage() {
       router.push("/study");
     } catch (error: any) {
       console.error(error);
-      alert(error.message || "Failed to generate study materials. Try again.");
+      if (error.message?.includes("limit") || error.message?.includes("Upgrade")) {
+        setShowLimitModal(true);
+      } else {
+        alert(error.message || "Failed to generate study materials. Try again.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -128,6 +134,49 @@ export default function AppHubPage() {
 
   return (
     <PageWrapper>
+      {/* Limit Modal */}
+      <AnimatePresence>
+        {showLimitModal && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#0f0f0f] border border-white/10 p-8 rounded-3xl max-w-md w-full shadow-2xl relative overflow-hidden text-center"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple to-brand-cyan" />
+              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Sparkles className="w-8 h-8 text-brand-purple" />
+              </div>
+              <h2 className="text-2xl font-bold mb-4">Out of Generations</h2>
+              <p className="text-neutral-300 mb-8 leading-relaxed">
+                You've hit your weekly limit for the Basic plan. You can <span className="text-white font-bold">wait until next week</span> when your limit automatically refreshes, or upgrade to Pro for <span className="text-brand-cyan font-bold">unlimited</span> generations right now!
+              </p>
+              <div className="flex flex-col space-y-3">
+                <Button 
+                  onClick={() => router.push('/upgrade')}
+                  className="w-full bg-gradient-to-r from-brand-purple to-brand-cyan hover:from-brand-cyan hover:to-brand-purple text-white font-bold shadow-lg"
+                >
+                  Upgrade to Pro
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setShowLimitModal(false)}
+                  className="w-full text-neutral-400 hover:text-white"
+                >
+                  Maybe later
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="max-w-4xl mx-auto space-y-8">
         <div>
           <h1 className="text-3xl font-bold mb-2">Input Hub</h1>

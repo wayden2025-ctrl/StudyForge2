@@ -34,9 +34,9 @@ export async function POST(req: Request) {
       }
 
       const tier = user.user_metadata?.subscription_tier || "free";
+      
       let limit = 5; // Free
-      if (tier === "pro") limit = 50;
-      if (tier === "max") limit = Infinity;
+      if (tier === "pro" || tier === "max") limit = Infinity;
 
       if (genCount >= limit) {
         return NextResponse.json(
@@ -93,6 +93,7 @@ export async function POST(req: Request) {
         "key_concepts": [
           {"title": "concept 1 title", "description": "detailed simplified explanation"}
         ],
+        "detailed_notes": "<Generate a highly detailed, well-structured version of the notes in markdown format here. Use bullet points, clear headings, and clean formatting. Make it significantly more comprehensive than the summary or key concepts.>",
         "mnemonics": ["mnemonic 1", "mnemonic 2"]
       }
       
@@ -112,6 +113,10 @@ export async function POST(req: Request) {
     }
 
     const parsedData = JSON.parse(content as string);
+    console.log("Keys returned by AI:", Object.keys(parsedData));
+    if (!parsedData.detailed_notes) {
+      console.warn("AI did not generate detailed_notes!");
+    }
     return NextResponse.json(parsedData);
 
   } catch (error) {

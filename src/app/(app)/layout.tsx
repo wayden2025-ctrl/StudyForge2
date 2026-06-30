@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles, User, Zap, CalendarDays, MessageSquare } from "lucide-react";
+import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles, User, Zap, CalendarDays, MessageSquare, Bookmark, BarChart3 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -12,6 +12,8 @@ import { createClient } from "@/utils/supabase/client";
 
 const NAV_ITEMS = [
   { name: "Input Hub", href: "/app", icon: LayoutDashboard },
+  { name: "My Library", href: "/library", icon: Bookmark },
+  { name: "Analytics", href: "/analytics", icon: BarChart3 },
   { name: "Study Plans", href: "/study-plans", icon: CalendarDays },
   { name: "Flashcards", href: "/flashcards", icon: BookOpen },
   { name: "Quiz Mode", href: "/quiz", icon: BrainCircuit },
@@ -37,8 +39,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         const meta = user.user_metadata || {};
         const tier = meta.subscription_tier || "free";
         let sMax = 5; let pMax = 5;
-        if (tier === "pro") { sMax = 50; pMax = 50; }
-        if (tier === "max") { sMax = Infinity; pMax = Infinity; }
+        if (tier === "pro" || tier === "max") { sMax = Infinity; pMax = Infinity; }
 
         setUserLimits({
           tier,
@@ -106,30 +107,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
-          {/* Trackers */}
-          <div className="px-4 mt-auto mb-4 space-y-4">
-            <div>
-              <div className="flex justify-between text-xs text-neutral-400 mb-1.5">
-                <span className="font-medium tracking-wide uppercase text-[10px]">Study Gens</span>
-                <span className="font-bold">{userLimits.studyGens} / {userLimits.studyMax === Infinity ? '∞' : userLimits.studyMax}</span>
-              </div>
-              <div className="w-full bg-white/5 border border-white/10 rounded-full h-1.5 overflow-hidden">
-                <div className="bg-gradient-to-r from-brand-purple to-purple-400 h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (userLimits.studyGens/userLimits.studyMax)*100)}%` }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between text-xs text-neutral-400 mb-1.5">
-                <span className="font-medium tracking-wide uppercase text-[10px]">Plan Gens</span>
-                <span className="font-bold">{userLimits.planGens} / {userLimits.planMax === Infinity ? '∞' : userLimits.planMax}</span>
-              </div>
-              <div className="w-full bg-white/5 border border-white/10 rounded-full h-1.5 overflow-hidden">
-                <div className="bg-gradient-to-r from-brand-cyan to-blue-400 h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (userLimits.planGens/userLimits.planMax)*100)}%` }}></div>
-              </div>
-            </div>
-          </div>
-
           {/* Footer Navigation */}
-          <div className="space-y-2">
+          <div className="space-y-2 mt-auto">
             {/* Upgrade Button */}
             <div className="pb-2 relative group">
               <Link href="/upgrade">

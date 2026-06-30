@@ -4,7 +4,7 @@ import { PageWrapper } from "@/components/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { useStudyStore } from "@/store/useStudyStore";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, RotateCcw, Save, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -12,6 +12,29 @@ export default function FlashcardsPage() {
   const { data } = useStudyStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const cards = data?.flashcards || [];
+  const currentCard = cards[currentIndex];
+
+  const handleSaveFlashcard = async () => {
+    if (!currentCard) return;
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/save-flashcard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: currentCard.question, answer: currentCard.answer })
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Failed to save");
+      alert("Flashcard saved to your Library!");
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   if (!data || data.flashcards.length === 0) {
     return (
@@ -27,9 +50,6 @@ export default function FlashcardsPage() {
       </PageWrapper>
     );
   }
-
-  const cards = data.flashcards;
-  const currentCard = cards[currentIndex];
 
   const handleNext = () => {
     setIsFlipped(false);
@@ -49,7 +69,18 @@ export default function FlashcardsPage() {
     <PageWrapper>
       <div className="max-w-3xl mx-auto flex flex-col min-h-[80vh]">
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold mb-2">Flashcards</h1>
+          <div className="flex items-center justify-between w-full max-w-sm mx-auto mb-4">
+            <h1 className="text-3xl font-bold">Flashcards</h1>
+            <Button 
+              size="sm" 
+              onClick={handleSaveFlashcard} 
+              disabled={isSaving} 
+              className="bg-brand-blue hover:bg-brand-blue/90 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:scale-105 transition-all"
+            >
+              {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+              Save Card
+            </Button>
+          </div>
           <p className="text-neutral-400">
             Card {currentIndex + 1} of {cards.length}
           </p>

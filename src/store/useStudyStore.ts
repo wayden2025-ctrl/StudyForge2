@@ -23,6 +23,7 @@ export interface StudyData {
   quiz: QuizQuestion[];
   key_concepts: KeyConcept[];
   mnemonics: string[];
+  detailed_notes: string;
 }
 
 interface StudyStore {

@@ -40,8 +40,7 @@ export async function POST(req: Request) {
       const tier = user.user_metadata?.subscription_tier || "free";
       
       let limit = 5; // Free
-      if (tier === "pro") limit = 50;
-      if (tier === "max") limit = Infinity;
+      if (tier === "pro" || tier === "max") limit = Infinity;
 
       if (planCount >= limit) {
         return NextResponse.json(
