@@ -49,7 +49,7 @@ export default function GoalPage() {
           </div>
 
           <p className="text-lg leading-relaxed mb-8">
-            StudyForge AI was built to flip the ratio. By using advanced AI, we want to instantly forge your messy materials into pristine, ready-to-use flashcards, quizzes, and summaries. 
+            Notiq AI was built to flip the ratio. By using advanced AI, we want to instantly forge your messy materials into pristine, ready-to-use flashcards, quizzes, and summaries. 
           </p>
 
           <p className="text-lg leading-relaxed">

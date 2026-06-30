@@ -20,7 +20,7 @@ export default function PrivacyPage() {
 
         <div className="prose prose-invert max-w-none text-neutral-300">
           <p className="mb-6">
-            At StudyForge AI, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website and services.
+            At Notiq AI, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website and services.
           </p>
 
           <h3 className="text-xl font-semibold text-white mt-8 mb-4">1. Information We Collect</h3>

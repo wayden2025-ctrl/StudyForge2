@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "StudyForge AI - Master Your Notes",
+  title: "Notiq AI - Master Your Notes",
   description: "Turn messy notes into flashcards, quizzes, summaries, and memory tools with AI.",
 };
 

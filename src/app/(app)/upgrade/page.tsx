@@ -19,7 +19,7 @@ export default function UpgradePage() {
             <Sparkles className="w-4 h-4" /> Upgrade Your Learning
           </div>
           <h1 className="text-4xl md:text-5xl font-bold font-syne tracking-tight">
-            Unlock the Full Power of StudyForge
+            Unlock the Full Power of Notiq AI
           </h1>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
             Generate unlimited flashcards, process massive PDFs, and get your study materials instantly. Choose the plan that fits your ambition.

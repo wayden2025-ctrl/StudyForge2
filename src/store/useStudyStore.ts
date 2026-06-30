@@ -47,7 +47,7 @@ export const useStudyStore = create<StudyStore>()(
       incrementAnonCount: () => set((state) => ({ anonCount: state.anonCount + 1 })),
     }),
     {
-      name: 'studyforge-storage',
+      name: 'notiq-storage',
       partialize: (state) => ({ anonCount: state.anonCount, data: state.data }),
     }
   )

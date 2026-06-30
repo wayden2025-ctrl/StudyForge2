@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles, User, Zap, CalendarDays } from "lucide-react";
+import { BookOpen, BrainCircuit, LayoutDashboard, Menu, Sparkles, User, Zap, CalendarDays, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -77,12 +77,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="relative w-12 h-12 transition-transform duration-300 ease-in-out group-hover:scale-110 group-active:scale-95 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.15)]">
               <Image 
                 src="/logo.png" 
-                alt="StudyForge Logo" 
+                alt="Notiq AI Logo" 
                 fill
                 className="object-contain drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]"
               />
             </div>
-            <span className="text-xl font-bold text-gradient opacity-90 transition-opacity duration-300 group-hover:opacity-100">StudyForge</span>
+            <span className="text-xl font-bold text-gradient opacity-90 transition-opacity duration-300 group-hover:opacity-100">Notiq AI</span>
           </Link>
           
           <nav className="flex-1 space-y-2">
@@ -145,6 +145,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
             {/* Account & Logout */}
             <div className="pt-2 border-t border-white/10 space-y-1">
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSesEj-InHyY389fQqPbHuM2Oi7tc-QUuJtXTuOXgE7EmBkB7w/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+                <div className="w-full flex flex-col px-4 py-3 rounded-xl transition-all text-neutral-400 hover:text-white hover:bg-white/5">
+                  <div className="flex items-center space-x-3 mb-1">
+                    <MessageSquare className="w-5 h-5" />
+                    <span className="font-medium">Feedback & Questions</span>
+                  </div>
+                  <span className="text-[10px] text-brand-cyan/80 ml-8 leading-tight">We answer all questions within 24 hours!</span>
+                </div>
+              </a>
               <Link href="/account">
                 <div className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all text-neutral-400 hover:text-white hover:bg-white/5">
                   <User className="w-5 h-5" />

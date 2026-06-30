@@ -41,7 +41,7 @@ export default function Act10Mission({ progress }: { progress: MotionValue<numbe
           xOffset={-352}
           title="The Flip"
           subtitle="Our Solution"
-          text="Study Forge was built to flip the ratio: <span class='text-brand-cyan font-bold'>less busywork, more deep understanding.</span>"
+          text="Notiq AI was built to flip the ratio: <span class='text-brand-cyan font-bold'>less busywork, more deep understanding.</span>"
         />
 
       </div>

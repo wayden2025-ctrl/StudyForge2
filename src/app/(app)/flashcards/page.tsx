@@ -86,9 +86,9 @@ export default function FlashcardsPage() {
           </Button>
           
           <div className="flex space-x-3">
-            <Button variant="outline" className="text-red-400 border-red-500/30 hover:bg-red-500/10">Hard</Button>
-            <Button variant="outline" className="text-brand-blue border-brand-blue/30 hover:bg-brand-blue/10">Good</Button>
-            <Button variant="outline" className="text-green-400 border-green-500/30 hover:bg-green-500/10">Easy</Button>
+            <Button variant="outline" onClick={handleNext} className="text-red-400 border-red-500/30 hover:bg-red-500/10">Hard</Button>
+            <Button variant="outline" onClick={handleNext} className="text-brand-blue border-brand-blue/30 hover:bg-brand-blue/10">Medium</Button>
+            <Button variant="outline" onClick={handleNext} className="text-green-400 border-green-500/30 hover:bg-green-500/10">Easy</Button>
           </div>
 
           <Button variant="ghost" onClick={handleNext}>

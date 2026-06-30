@@ -73,11 +73,19 @@ export default function LandingPage() {
         <div className="nav-inner">
           <div className="nlogo group cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95">
             <div className="relative w-10 h-10 mr-1 shadow-[0_0_10px_rgba(168,85,247,0.2)] rounded-lg overflow-hidden">
-              <Image src="/logo.png" alt="StudyForge Logo" fill className="object-contain" />
+              <Image src="/logo.png" alt="Notiq AI Logo" fill className="object-contain" />
             </div>
-            <span className="opacity-90 group-hover:opacity-100 transition-opacity">StudyForge AI</span>
+            <span className="opacity-90 group-hover:opacity-100 transition-opacity">Notiq AI</span>
           </div>
           <div className="flex items-center gap-5">
+            <a 
+              href="https://docs.google.com/forms/d/e/1FAIpQLSesEj-InHyY389fQqPbHuM2Oi7tc-QUuJtXTuOXgE7EmBkB7w/viewform?usp=publish-editor" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-brand-cyan font-medium text-[0.95rem] transition-colors"
+            >
+              Feedback
+            </a>
             <Link 
               href="/upgrade" 
               className="text-white/60 hover:text-white font-medium text-[0.95rem] transition-colors"
@@ -114,7 +122,7 @@ export default function LandingPage() {
               <div className="nicon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
               </div>
-              StudyForge AI
+              Notiq AI
             </div>
             <p>The ultimate AI Study OS &mdash; transforming the way students learn, memorize, and conquer exams.</p>
           </div>
@@ -136,7 +144,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="fbot">
-          <span>&copy; 2026 StudyForge AI. All rights reserved.</span>
+          <span>&copy; 2026 Notiq AI. All rights reserved.</span>
           <span>Built for students, by students.</span>
         </div>
       </footer>

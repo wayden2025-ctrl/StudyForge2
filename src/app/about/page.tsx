@@ -17,12 +17,12 @@ export default function AboutPage() {
         
         <div className="flex items-center space-x-3 mb-8">
           <Sparkles className="w-10 h-10 text-brand-purple" />
-          <h1 className="text-4xl md:text-5xl font-bold text-gradient">About StudyForge AI</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gradient">About Notiq AI</h1>
         </div>
 
         <div className="prose prose-invert max-w-none prose-lg">
           <p className="text-xl text-neutral-300 leading-relaxed mb-8">
-            StudyForge AI was born out of a simple frustration: students spend too much time organizing and re-writing notes, and not enough time actually learning the material. We built StudyForge to change that.
+            Notiq AI was born out of a simple frustration: students spend too much time organizing and re-writing notes, and not enough time actually learning the material. We built Notiq AI to change that.
           </p>
 
           <h2 className="text-2xl font-semibold mt-12 mb-4 text-white">Our Mission</h2>
@@ -32,7 +32,7 @@ export default function AboutPage() {
 
           <h2 className="text-2xl font-semibold mt-12 mb-4 text-white">Built by Students, for Students</h2>
           <p className="text-neutral-400 leading-relaxed mb-6">
-            We understand the late-night cram sessions and the stress of midterms. That is why every feature in StudyForge—from spaced repetition flashcards to instant multiple-choice quizzes—is designed specifically to optimize memory retention and academic performance.
+            We understand the late-night cram sessions and the stress of midterms. That is why every feature in Notiq AI—from spaced repetition flashcards to instant multiple-choice quizzes—is designed specifically to optimize memory retention and academic performance.
           </p>
 
           <div className="glass-card rounded-2xl p-8 mt-12 flex flex-col sm:flex-row items-center justify-between border-brand-purple/20">

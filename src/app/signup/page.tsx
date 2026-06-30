@@ -27,12 +27,12 @@ export default async function SignupPage({
       <div className="w-full max-w-md relative z-10">
         <Link href="/" className="flex items-center justify-center space-x-2 mb-8">
           <Sparkles className="w-8 h-8 text-brand-purple" />
-          <span className="text-2xl font-bold text-white tracking-tight font-syne">StudyForge</span>
+          <span className="text-2xl font-bold text-white tracking-tight font-syne">Notiq AI</span>
         </Link>
 
         <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-xl shadow-2xl">
           <h2 className="text-2xl font-semibold text-white mb-2 text-center">Create Your Account</h2>
-          <p className="text-neutral-400 text-center mb-8 text-sm">Join StudyForge and start learning smarter</p>
+          <p className="text-neutral-400 text-center mb-8 text-sm">Join Notiq AI and start learning smarter</p>
 
           <form className="space-y-4">
             <div>
