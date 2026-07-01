@@ -16,11 +16,11 @@ export default function Act12CTA({ progress }: { progress: MotionValue<number> }
 
       <div className="relative z-10 text-center max-w-4xl px-4">
         <h2 className="text-[clamp(3.5rem,8vw,7rem)] font-extrabold tracking-tighter text-white leading-none mb-8">
-          Start learning <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-purple">differently.</span>
+          This is <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-purple">Notiq AI.</span>
         </h2>
         
         <p className="text-xl md:text-2xl text-neutral-400 font-light mb-12">
-          Join thousands of students who have already flipped the ratio.
+          A tool built to help you succeed.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 scale-110 mt-6 mb-10">

@@ -25,9 +25,7 @@ export default function CinematicTimeline() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest >= 0.999) {
-      router.push('/login');
-    }
+    // Automatically pushing to login is disabled so users can read the final CTA.
   });
 
   // Global Animated Card Transforms
