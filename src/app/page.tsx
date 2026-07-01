@@ -127,7 +127,7 @@ export default function LandingPage() {
               Students Are Obsessed
             </h2>
             <p className="text-white/50 mt-4 text-lg max-w-lg mx-auto">See why thousands of students are switching to Notiq AI for their study sessions.</p>
-            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5">
+            <div className="mt-6 flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mx-auto w-fit">
               <svg className="w-4 h-4 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
               <span className="text-white text-sm"><strong className="font-extrabold">Authenticated by Proof</strong></span>
             </div>
