@@ -156,10 +156,10 @@ export default function LandingPage() {
             ].map((t, i) => (
               <div
                 key={i}
-                className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300 flex flex-col items-center text-center"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
-                <div className="flex items-center gap-1 mb-4">
+                <div className="flex items-center justify-center gap-1 mb-4">
                   {Array.from({ length: Math.floor(t.stars) }).map((_, s) => (
                     <svg key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                   ))}
@@ -171,8 +171,8 @@ export default function LandingPage() {
                   )}
                 </div>
                 <p className="text-white/80 text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center text-white font-bold text-sm">
+                <div className="flex flex-col items-center gap-3 mt-auto">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center text-white font-bold text-sm">
                     {t.name[0]}
                   </div>
                   <div>
@@ -207,10 +207,10 @@ export default function LandingPage() {
             ].map((t, i) => (
               <div
                 key={i + 3}
-                className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300"
+                className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-300 flex flex-col items-center text-center"
                 style={{ animationDelay: `${(i + 3) * 0.15}s` }}
               >
-                <div className="flex items-center gap-1 mb-4">
+                <div className="flex items-center justify-center gap-1 mb-4">
                   {Array.from({ length: Math.floor(t.stars) }).map((_, s) => (
                     <svg key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                   ))}
@@ -222,8 +222,8 @@ export default function LandingPage() {
                   )}
                 </div>
                 <p className="text-white/80 text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center text-white font-bold text-sm">
+                <div className="flex flex-col items-center gap-3 mt-auto">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center text-white font-bold text-sm">
                     {t.name[0]}
                   </div>
                   <div>
