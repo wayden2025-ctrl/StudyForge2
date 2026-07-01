@@ -47,13 +47,19 @@ export async function POST(req: Request) {
         mnemonics
       });
 
-    if (insertError) throw insertError;
+    if (insertError) {
+      console.error("Supabase insert error:", insertError);
+      return NextResponse.json(
+        { error: "Technical difficulties: We are currently unable to save new notes. Please try again later." },
+        { status: 503 }
+      );
+    }
 
     return NextResponse.json({ success: true });
 
   } catch (error) {
     const err = error as { message?: string };
     console.error("API Error:", err);
-    return NextResponse.json({ error: err.message || "Failed to save note" }, { status: 500 });
+    return NextResponse.json({ error: "Technical difficulties: We are currently unable to save new notes." }, { status: 500 });
   }
 }
