@@ -225,12 +225,18 @@ export default function AppHubPage() {
             <div className="flex-1 h-px bg-white/10" />
           </div>
 
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Paste your lecture notes, textbook chapters, or transcript here... (Uploaded text will appear here!)"
-            className="w-full h-64 bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple resize-none placeholder:text-neutral-600"
-          />
+          <div className="relative">
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value.slice(0, 20000))}
+              maxLength={20000}
+              placeholder="Paste your lecture notes, textbook chapters, or transcript here... (Uploaded text will appear here!)"
+              className="w-full h-64 bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple resize-none placeholder:text-neutral-600"
+            />
+            <div className={`absolute bottom-3 right-4 text-xs font-medium ${text.length >= 20000 ? 'text-red-400' : 'text-neutral-500'}`}>
+              {text.length.toLocaleString()} / 20,000
+            </div>
+          </div>
 
           <div className="flex flex-col items-end gap-3">
             {isAnonBlocked && (
@@ -242,7 +248,7 @@ export default function AppHubPage() {
             <Button
               size="lg"
               onClick={handleGenerate}
-              disabled={!text.trim() || isParsing || isAnonBlocked}
+              disabled={!text.trim() || text.length > 20000 || isParsing || isAnonBlocked}
               className="w-full sm:w-auto"
             >
               <Sparkles className="w-5 h-5 mr-2 text-brand-blue" />

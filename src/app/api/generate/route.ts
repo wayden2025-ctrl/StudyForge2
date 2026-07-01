@@ -10,6 +10,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Text is required" }, { status: 400 });
     }
 
+    if (text.length > 20000) {
+      return NextResponse.json({ error: "Text is too long. Please keep it under 20,000 characters per generation." }, { status: 400 });
+    }
+
     // --- FREEMIUM LIMITS CHECK ---
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -119,9 +123,17 @@ export async function POST(req: Request) {
     }
     return NextResponse.json(parsedData);
 
-  } catch (error) {
-    const err = error as { message?: string };
-    console.error("API Error:", err);
-    return NextResponse.json({ error: err.message || "Failed to generate study materials" }, { status: 500 });
+  } catch (error: any) {
+    console.error("API Error:", error);
+
+    // Check for Groq/OpenAI 429 Rate Limit error
+    if (error?.status === 429 || error?.response?.status === 429 || error?.message?.includes('429')) {
+      return NextResponse.json(
+        { error: "Technical issue: AI servers are currently at capacity. Please try again in a few moments." },
+        { status: 429 }
+      );
+    }
+
+    return NextResponse.json({ error: error.message || "Failed to generate study materials" }, { status: 500 });
   }
 }
