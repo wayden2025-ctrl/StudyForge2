@@ -107,7 +107,7 @@ export async function POST(req: Request) {
 
     const completion = await client.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
-      model: isGroq ? "llama-3.1-8b-instant" : "gpt-4o-mini",
+      model: isGroq ? "llama-3.1-70b-versatile" : "gpt-4o-mini",
       response_format: { type: "json_object" },
     });
 
@@ -116,7 +116,22 @@ export async function POST(req: Request) {
       throw new Error("Failed to generate content");
     }
 
-    const parsedData = JSON.parse(content as string);
+    let parsedData;
+    try {
+      // Sometimes the AI wraps JSON in markdown blocks (e.g., ```json ... ```)
+      let cleanContent = (content as string).trim();
+      if (cleanContent.startsWith("```json")) {
+        cleanContent = cleanContent.replace(/^```json\n?/, "").replace(/\n?```$/, "");
+      } else if (cleanContent.startsWith("```")) {
+        cleanContent = cleanContent.replace(/^```\n?/, "").replace(/\n?```$/, "");
+      }
+      parsedData = JSON.parse(cleanContent);
+    } catch (parseError) {
+      console.error("Failed to parse JSON:", parseError);
+      console.error("Raw AI Output:", content);
+      throw new Error("AI generated an invalid format. Please try again.");
+    }
+    
     console.log("Keys returned by AI:", Object.keys(parsedData));
     if (!parsedData.detailed_notes) {
       console.warn("AI did not generate detailed_notes!");
